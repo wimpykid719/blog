@@ -8,3 +8,7 @@ export type Article = {
   date: string;
   content: string;
 }
+
+// export type ArticleContent = ArticleTitle &{
+//   content: string;
+// }

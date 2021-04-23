@@ -31,14 +31,10 @@ export async function getPostsData() {
         const buffer = Buffer.from(data.content, 'base64');
         const fileContents = buffer.toString("utf-8");
         const matterResult = matter(fileContents)
-        const processedContent = await remark()
-          .use(html)
-          .process(matterResult.content)
-        const contentHtml = processedContent.toString()
         return {
           id: article.name.replace(/\.md$/, ''),
           ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; }),
-          content: contentHtml,
+          content: matterResult.content
         }
       }));
     }
@@ -47,8 +43,48 @@ export async function getPostsData() {
 }
 
 export async function getSortedPostsData(articles: Article[]){
-  
+  return articles.sort((a, b) => {
+    if (a.date === b.date){
+      return 0
+    }
+    if (a.date < b.date) {
+        return 1
+    } else {
+        return -1
+    }
+  })
 }
+
+export async function getHtmlContent(articles: Article[]) {
+  return articles.map(async (article: Article) => {
+    const processedContent = await remark()
+      .use(html)
+      .process(article.content)
+    const contentHtml = processedContent.toString()
+    return {
+      ...article,
+      content: contentHtml
+    }
+  })
+}
+
+export function getAllPostIds(articles: Article[]) {
+  return articles.map((article: Article) => {
+    return {
+      params: {
+          id: article.id
+      }
+    }
+  })
+}
+
+export function getPostData(articles: Article[], id: string) {
+  return articles.filter((article: Article) => {
+    if(article.id === id) {
+      return article
+    }
+  })
+} 
 
 // if (mdObj.data.published) {
 //   datas[mdObj.data.title] = mdObj.content;
