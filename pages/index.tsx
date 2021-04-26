@@ -7,29 +7,33 @@ import { Article } from '../types/Article'
 import Layout from '../components/layout'
 
 
+const pattern = ["bg-blue", "bg-blue-light", "bg-gray", "bg-earth-light"]; 
 
+function getColorClassFromIndex(index: number): string {
+  return pattern[index % pattern.length];
+}
 
 export default function Home({ 
-  sortedPostData 
+  sortedPostData
 }: {
-  sortedPostData: Article[]
+  sortedPostData: Article[],
 }) {
   return (
-    <Layout>
+    <Layout home>
       <div className="">
         <Head>
           <title>Hello</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <ul>
-            {sortedPostData.map(({ id, title }) => (
-              <li key={id}>
+          {sortedPostData.map(({ id, title }, index) => (
+            <li className={getColorClassFromIndex(index)} key={id}>
               <Link href={`/posts/${id}`}>
-                <a>{title}</a>
+                {title}
               </Link>
-              </li>
-            ))}
-          </ul>
+            </li>
+          ))}
+        </ul>
       </div>
     </Layout>
   )
