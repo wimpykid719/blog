@@ -30,8 +30,8 @@ export default function Home({
         </Head>
         <ul>
           {sortedPostData.map(({ id, title, date, topics, type }, index) => (
-            <li className={"h-52 " + getColorClassFromIndex(index)} key={id}>
-              <div className="w-11/12 h-full flex flex-col">
+            <li className={"h-52 flex justify-center items-center " + getColorClassFromIndex(index)} key={id}>
+              <div className="w-11/12 h-5/6 flex flex-col">
                 <Link href={`/posts/${id}`}>
                   {title}
                 </Link>
