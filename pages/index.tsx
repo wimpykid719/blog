@@ -5,6 +5,9 @@ import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { Article } from '../types/Article'
 import Layout from '../components/layout'
+import Date from '../components/date'
+import Topics from '../components/topics'
+
 
 
 const pattern = ["bg-blue", "bg-blue-light", "bg-gray", "bg-earth-light"]; 
@@ -16,7 +19,7 @@ function getColorClassFromIndex(index: number): string {
 export default function Home({ 
   sortedPostData
 }: {
-  sortedPostData: Article[],
+  sortedPostData: Article[]
 }) {
   return (
     <Layout home>
@@ -26,11 +29,20 @@ export default function Home({
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <ul>
-          {sortedPostData.map(({ id, title }, index) => (
-            <li className={getColorClassFromIndex(index)} key={id}>
-              <Link href={`/posts/${id}`}>
-                {title}
-              </Link>
+          {sortedPostData.map(({ id, title, date, topics, type }, index) => (
+            <li className={"h-52 " + getColorClassFromIndex(index)} key={id}>
+              <div className="w-11/12 h-full flex flex-col">
+                <Link href={`/posts/${id}`}>
+                  {title}
+                </Link>
+                <div className="">
+                  <Topics topicList={topics} />
+                </div>
+                <small className="flex justify-between mt-auto items-end">
+                  <span>{type}</span>
+                  <Date dateString={date} />
+                </small>
+              </div>
             </li>
           ))}
         </ul>
