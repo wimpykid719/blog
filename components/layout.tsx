@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
+import { Navbar } from './menu';
+
 
 export const siteTitle = 'Next.js Sample Website'
 
@@ -26,6 +28,7 @@ export default function Layout({
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
+            <Navbar />
             <main>{children}</main>
             {!home && (
                 <div>
