@@ -28,9 +28,9 @@ export default function Home({
           <title>Hello</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <ul>
+        <ul className="lg:flex lg:flex-wrap lg:justify-between">
           {sortedPostData.map(({ id, title, date, topics, type }, index) => (
-            <li className={"h-60 flex justify-center items-center " + getColorClassFromIndex(index)} key={id}>
+            <li className={"h-60 flex justify-center items-center max-w-md w-full " + getColorClassFromIndex(index)} key={id}>
               <div className="w-11/12 h-5/6 flex flex-col">
                 <div className="font-bold text-xl">
                   <Link href={`/posts/${id}`}>

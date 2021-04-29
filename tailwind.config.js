@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
@@ -9,6 +11,7 @@ module.exports = {
         dark: '#112d4e',
       },
       earth: {
+        lighter: '#efefef',
         light: '#f9f7f7',
         DEFAULT: '#BDBDBD',
         dark: '#757575',
@@ -23,7 +26,31 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        ".disable-scrollbars": {
+          scrollbarWidth: "none",
+          "-ms-overflow-style": "none",
+          "&::-webkit-scrollbar": {
+            width: "0px",
+            background: "transparent",
+            display: "none"
+          },
+          "& *::-webkit-scrollbar": {
+            width: "0px",
+            background: "transparent",
+            display: "none"
+          },
+          "& *": {
+            scrollbarWidth: "none",
+            "-ms-overflow-style": "none"
+          }
+        }
+      };
+      addUtilities(newUtilities);
+    })
+  ],
 }
 
 

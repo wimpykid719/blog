@@ -28,8 +28,10 @@ export default function Layout({
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <Navbar />
-            <main>{children}</main>
+            <div className="lg:flex">
+              <Navbar />
+              <main className="lg:flex-1 lg:bg-earth-lighter">{children}</main>
+            </div>
             {!home && (
                 <div>
                     <Link href="/">
