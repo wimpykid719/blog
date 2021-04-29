@@ -5,10 +5,14 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
+      transparent: {
+        DEFAULT: 'transparent'
+      },
       blue: {
         light: '#b9d7ea',
         DEFAULT: '#769fcd',
         dark: '#112d4e',
+        darker: '#4471a2',
       },
       earth: {
         lighter: '#efefef',

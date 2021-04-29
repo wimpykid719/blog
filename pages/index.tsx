@@ -23,14 +23,14 @@ export default function Home({
 }) {
   return (
     <Layout home>
-      <div className="">
+      <div className="lg:max-w-5xl lg:mx-auto">
         <Head>
           <title>Hello</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <ul className="lg:flex lg:flex-wrap lg:justify-between">
           {sortedPostData.map(({ id, title, date, topics, type }, index) => (
-            <li className={"h-60 flex justify-center items-center max-w-md w-full " + getColorClassFromIndex(index)} key={id}>
+            <li className={getColorClassFromIndex(index) + " h-60 flex justify-center items-center max-w-md w-full lg:mb-14 lg:bg-transparent" } key={id}>
               <div className="w-11/12 h-5/6 flex flex-col">
                 <div className="font-bold text-xl">
                   <Link href={`/posts/${id}`}>

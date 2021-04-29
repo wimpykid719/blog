@@ -13,7 +13,7 @@ export const Navbar = () => {
       {/* 下記のコードは三項演算子を使用していてactiveがTrueなら空が適用される。それで要素が出てくる。最初はfalseで要素を隠す。 */}
       <nav className={`${
         active ? '' : 'overflow-y-auto disable-scrollbars -translate-x-80'
-      } flex flex-wrap bg-earth-light p-1.5 fixed min-h-screen w-80 transform transition-transform lg:static lg:translate-x-0 lg:bg-earth-lighter`}
+      } flex flex-wrap bg-earth-light p-1.5 fixed min-h-screen w-80 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light`}
       >
       
         <div className="w-full">
@@ -27,7 +27,7 @@ export const Navbar = () => {
               </svg>
             </button>
           </div>
-          <div className='flex flex-col'>
+          <div className='flex flex-col lg:text-blue-darker'>
             <Link href='/'>
               <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
                 Home
