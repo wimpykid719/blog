@@ -23,8 +23,8 @@ export const Navbar = ({
     <>
       {/* 下記のコードは三項演算子を使用していてactiveがTrueなら空が適用される。それで要素が出てくる。最初はfalseで要素を隠す。 */}
       <nav className={`${
-        active ? '' : '-translate-x-80'
-      } lg:flex flex-wrap bg-earth-light p-1.5 fixed w-80 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen`}
+        active ? '' : '-translate-x-72'
+      } lg:flex flex-wrap bg-earth-light p-1.5 fixed w-72 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen rounded-3xl rounded-tl-none rounded-bl-none lg:rounded-none`}
       >
         <div className="flex justify-end lg:hidden">
             <button
@@ -44,7 +44,7 @@ export const Navbar = ({
                 alt="avatar"
                 width={80}
                 height={80}
-                className="rounded-lg"
+                className="rounded-3xl"
               />
             </div>
             <div>

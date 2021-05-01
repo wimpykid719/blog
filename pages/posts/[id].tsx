@@ -7,6 +7,8 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article } from '../../types/Article'
 import { UserResponse } from '../../types/Response'
 
+import "prismjs/themes/prism-daigakusei.css"
+
 
 export default function Post({ 
     postData,
