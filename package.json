@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-icons/all-files": "^4.1.0",
     "date-fns": "^2.21.1",
     "gray-matter": "^4.0.2",
     "next": "10.1.3",

@@ -1,14 +1,22 @@
 import Layout from '../../components/layout'
-import { getAllPostIds, getPostsData, getPostData } from '../../lib/posts'
+import { getAllPostIds, getPostsData, getHtmlContent, getPostData } from '../../lib/posts'
+import { getUserData } from '../../lib/user'
 import Head from 'next/head'
 import Date from '../../components/date'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article } from '../../types/Article'
+import { UserResponse } from '../../types/Response'
 
 
-export default function Post( { postData }: { postData: Article }) {
+export default function Post({ 
+    postData,
+    userData
+}: { 
+    postData: Article 
+    userData: UserResponse
+}) {
     return (
-        <Layout>
+        <Layout avatarUrl={userData.avatar_url}>
             <Head>
                 <title>{postData.title}</title>
             </Head>
@@ -38,9 +46,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const allPostsData = await getPostsData()
     const postData = getPostData(allPostsData, params.id as string).shift()
+    const convertedPostData = await getHtmlContent(postData)
+    const userData = await getUserData()
     return {
         props: {
-            postData
+            postData: convertedPostData,
+            userData: userData
         }
     }
 }

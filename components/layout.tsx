@@ -5,13 +5,15 @@ import { Navbar } from './menu';
 
 export const siteTitle = 'Next.js Sample Website'
 
-
+//homeの型定義の?は必須の引数でない時に付ける。
 export default function Layout({
     children,
-    home
+    home,
+    avatarUrl,
 }: {
     children: React.ReactNode
     home?: boolean
+    avatarUrl?: string
 }) {
     return (
         <div>
@@ -29,7 +31,7 @@ export default function Layout({
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <div className="lg:flex">
-              <Navbar />
+              <Navbar avatarUrl={avatarUrl}/>
               <main className="lg:flex-1 lg:bg-earth-lighter">{children}</main>
             </div>
             {!home && (

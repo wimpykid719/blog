@@ -1,7 +1,18 @@
 import Link from 'next/link';
+import Image from 'next/image'
 import { useState } from 'react';
+import { aboutme } from '../aboutme'
+import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
+import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
 
-export const Navbar = () => {
+
+FaGithub
+
+export const Navbar = ({
+  avatarUrl
+  } : {
+    avatarUrl: string
+  }) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -12,14 +23,12 @@ export const Navbar = () => {
     <>
       {/* 下記のコードは三項演算子を使用していてactiveがTrueなら空が適用される。それで要素が出てくる。最初はfalseで要素を隠す。 */}
       <nav className={`${
-        active ? '' : 'overflow-y-auto disable-scrollbars -translate-x-80'
-      } flex flex-wrap bg-earth-light p-1.5 fixed min-h-screen w-80 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light`}
+        active ? '' : '-translate-x-80'
+      } lg:flex flex-wrap bg-earth-light p-1.5 fixed w-80 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen`}
       >
-      
-        <div className="w-full">
-          <div className="flex justify-end lg:hidden">
+        <div className="flex justify-end lg:hidden">
             <button
-              className="inline-flex p-3 hover:bg-gray rounded outline-none"
+              className="inline-flex p-3 hover:bg-gray rounded outline-none text-blue-dark"
               onClick={handleClick}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -27,89 +36,44 @@ export const Navbar = () => {
               </svg>
             </button>
           </div>
-          <div className='flex flex-col lg:text-blue-darker'>
+        <div className="w-60 mx-auto">
+          <div className="text-blue-dark flex justify-between mt-7">
+            <div>
+              <Image
+                src={avatarUrl}
+                alt="avatar"
+                width={80}
+                height={80}
+                className="rounded-lg"
+              />
+            </div>
+            <div>
+              <p className="text-xl font-bold">大学生だった.</p>
+              <ul className="text-xs font-extralight mt-2">
+                <li><a href={aboutme.twitterURL} target="_blank"><FaTwitter />　{aboutme.twitterID}</a></li>
+                <li><a href={aboutme.githubURL} target="_blank"><FaGithub />　{aboutme.githubID}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="text-sm text-blue-dark mt-2">
+            <p className="text-base font-bold">自己紹介</p>
+            <p>{aboutme.description}</p>
+            <br/>
+            <p className="text-base font-bold">使う技術</p>
+            <p>{aboutme.tech}</p>
+            <br/>
+            <p className="text-base font-bold">今やってる事</p>
+            <p>{aboutme.lately}</p>
+            <br/>
+            <p className="text-base font-bold">今後やりたい事</p>
+            <p>{aboutme.future}</p>
+          </div>
+          <div className='flex flex-col text-blue-dark mt-10 mb-10'>
             <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                About
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Contact
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
-                Home
-              </a>
-            </Link>
-            <Link href='/'>
-              <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
+              <a className='inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                </svg>
                 Home
               </a>
             </Link>

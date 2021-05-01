@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import { getPostsData } from '../lib/posts'
 import { getSortedPostsData } from '../lib/posts'
+import { getUserData } from '../lib/user'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { Article } from '../types/Article'
+import { UserResponse } from '../types/Response'
 import Layout from '../components/layout'
 import Date from '../components/date'
 import Topics from '../components/topics'
@@ -17,12 +19,13 @@ function getColorClassFromIndex(index: number): string {
 }
 
 export default function Home({ 
-  sortedPostData
+  sortedPostData, userData
 }: {
   sortedPostData: Article[]
+  userData: UserResponse
 }) {
   return (
-    <Layout home>
+    <Layout home avatarUrl={userData.avatar_url}>
       <div className="lg:max-w-5xl lg:mx-auto">
         <Head>
           <title>Hello</title>
@@ -56,9 +59,11 @@ export default function Home({
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = await getPostsData()
   const sortedPostData = await getSortedPostsData(allPostsData)
+  const userData = await getUserData()
   return {
     props: {
-      sortedPostData
+      sortedPostData: sortedPostData,
+      userData: userData, 
     }
   }
 }

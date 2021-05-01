@@ -11,11 +11,11 @@ module.exports = {
       blue: {
         light: '#b9d7ea',
         DEFAULT: '#769fcd',
-        dark: '#112d4e',
-        darker: '#4471a2',
+        dark: '#4471a2',
+        darker: '#112d4e',
       },
       earth: {
-        lighter: '#efefef',
+        lighter: '#f5f0e6',
         light: '#f9f7f7',
         DEFAULT: '#BDBDBD',
         dark: '#757575',

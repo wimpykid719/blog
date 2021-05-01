@@ -1,13 +1,13 @@
 import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
-import { Response } from '../types/Response'
+import { ArticleResponse } from '../types/Response'
 import { Article } from '../types/Article'
 import { accessToken } from '../token'
 
 
 export async function getPostsData() {
-  const zennArticles: Response[] = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles", {
+  const zennArticles: ArticleResponse[] = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles", {
     headers: {"Authorization": accessToken}
   })
     .then(res => {
@@ -18,7 +18,7 @@ export async function getPostsData() {
     });
   const datas = await (async (zennArticles) => {
     if (zennArticles) {
-      return await Promise.all(zennArticles.map(async (article: Response) => {
+      return await Promise.all(zennArticles.map(async (article: ArticleResponse) => {
         const data = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/" + article.name, {
           headers: {"Authorization": accessToken}
         })
@@ -55,17 +55,15 @@ export async function getSortedPostsData(articles: Article[]){
   })
 }
 
-export async function getHtmlContent(articles: Article[]) {
-  return articles.map(async (article: Article) => {
-    const processedContent = await remark()
-      .use(html)
-      .process(article.content)
-    const contentHtml = processedContent.toString()
-    return {
-      ...article,
-      content: contentHtml
-    }
-  })
+export async function getHtmlContent(article: Article) {
+  const processedContent = await remark()
+    .use(html)
+    .process(article.content)
+  const contentHtml = processedContent.toString()
+  return {
+    ...article,
+    content: contentHtml
+  }
 }
 
 export function getAllPostIds(articles: Article[]) {
