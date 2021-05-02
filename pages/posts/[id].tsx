@@ -7,8 +7,6 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article } from '../../types/Article'
 import { UserResponse } from '../../types/Response'
 
-import "prismjs/themes/prism-daigakusei.css"
-
 
 export default function Post({ 
     postData,
@@ -22,7 +20,7 @@ export default function Post({
             <Head>
                 <title>{postData.title}</title>
             </Head>
-            <article>
+            <article className="w-11/12 lg:max-w-4xl mx-auto mb-7">
                 <h1>{postData.title}</h1>
                 <div>
                     <Date dateString={postData.date} />

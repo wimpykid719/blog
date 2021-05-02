@@ -1,7 +1,12 @@
 import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
-import prism from 'remark-prism';
+import prism from 'remark-prism'
+//マークダウンから数式を解析
+import math from 'remark-math'
+//解析された数式をkatexが読み込めるようにHTML変換する。
+// import katex from 'rehype-katex'
+import htmlKatex from 'remark-html-katex'
 import { ArticleResponse } from '../types/Response'
 import { Article } from '../types/Article'
 import { accessToken } from '../token'
@@ -58,6 +63,8 @@ export async function getSortedPostsData(articles: Article[]){
 
 export async function getHtmlContent(article: Article) {
   const processedContent = await remark()
+    .use(math)
+    .use(htmlKatex)
     .use(html)
     .use(prism)
     .process(article.content)

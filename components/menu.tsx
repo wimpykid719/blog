@@ -24,7 +24,7 @@ export const Navbar = ({
       {/* 下記のコードは三項演算子を使用していてactiveがTrueなら空が適用される。それで要素が出てくる。最初はfalseで要素を隠す。 */}
       <nav className={`${
         active ? '' : '-translate-x-72'
-      } lg:flex flex-wrap bg-earth-light p-1.5 fixed w-72 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen rounded-3xl rounded-tl-none rounded-bl-none lg:rounded-none`}
+      } lg:flex flex-wrap bg-earth-light p-1.5 fixed z-10 w-72 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen rounded-3xl rounded-tl-none rounded-bl-none lg:rounded-none`}
       >
         <div className="flex justify-end lg:hidden">
             <button
@@ -80,7 +80,7 @@ export const Navbar = ({
           </div>
         </div>
       </nav>
-      <div className="bg-earth-light p-1.5 lg:hidden">
+      <div className="bg-earth-lighter p-1.5 lg:hidden">
         <button
           className="inline-flex p-3 hover:bg-gray rounded outline-none"
           onClick={handleClick}

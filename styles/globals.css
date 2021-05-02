@@ -22,3 +22,31 @@ a {
 svg {
   display: inline;
 }
+
+h1 {
+  @apply font-bold text-2xl mt-7 mb-7;
+}
+
+h2 {
+  @apply font-bold text-xl mt-4 mb-4;
+}
+
+h3 {
+  @apply font-bold text-lg mt-4 mb-4;
+}
+
+h4 {
+  @apply font-bold text-base mt-4 mb-4;
+}
+
+h5 {
+  @apply font-bold text-sm mt-4 mb-4;
+}
+
+p {
+  @apply leading-loose;
+}
+
+p > a {
+  @apply text-blue-dark;
+}

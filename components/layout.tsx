@@ -8,11 +8,9 @@ export const siteTitle = 'Next.js Sample Website'
 //homeの型定義の?は必須の引数でない時に付ける。
 export default function Layout({
     children,
-    home,
     avatarUrl,
 }: {
     children: React.ReactNode
-    home?: boolean
     avatarUrl?: string
 }) {
     return (
@@ -34,13 +32,6 @@ export default function Layout({
               <Navbar avatarUrl={avatarUrl}/>
               <main className="lg:flex-1 lg:bg-earth-lighter">{children}</main>
             </div>
-            {!home && (
-                <div>
-                    <Link href="/">
-                        <a>← Back to home</a>
-                    </Link>
-                </div>
-            )}
         </div>
     )
 }

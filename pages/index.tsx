@@ -25,7 +25,7 @@ export default function Home({
   userData: UserResponse
 }) {
   return (
-    <Layout home avatarUrl={userData.avatar_url}>
+    <Layout avatarUrl={userData.avatar_url}>
       <div className="lg:max-w-5xl lg:mx-auto">
         <Head>
           <title>Hello</title>
