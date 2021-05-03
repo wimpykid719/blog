@@ -6,8 +6,6 @@ import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
 
 
-FaGithub
-
 export const Navbar = ({
   avatarUrl
   } : {

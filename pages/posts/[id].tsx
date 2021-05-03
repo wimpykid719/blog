@@ -3,6 +3,7 @@ import { getAllPostIds, getPostsData, getHtmlContent, getPostData } from '../../
 import { getUserData } from '../../lib/user'
 import Head from 'next/head'
 import Date from '../../components/date'
+import Social from '../../components/social'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Article } from '../../types/Article'
 import { UserResponse } from '../../types/Response'
@@ -24,6 +25,7 @@ export default function Post({
                 <h1>{postData.title}</h1>
                 <div>
                     <Date dateString={postData.date} />
+                    <Social title={postData.title} id={postData.id} /> 
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: postData.content }} />
             </article>
