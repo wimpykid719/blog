@@ -40,7 +40,7 @@ export default function Home({
                     {title}
                   </Link>
                 </div>
-                <div className="text-xs text-gray-dark">
+                <div className="text-xs text-gray-darker">
                   <Topics topicList={topics} />
                 </div>
                 <small className="border border-r-0 border-b-0 border-l-0 h-8 flex justify-between mt-auto items-end">
