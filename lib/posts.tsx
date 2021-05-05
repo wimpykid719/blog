@@ -5,11 +5,9 @@ import prism from 'remark-prism'
 //マークダウンから数式を解析
 import math from 'remark-math'
 //解析された数式をkatexが読み込めるようにHTML変換する。
-// import katex from 'rehype-katex'
 import htmlKatex from 'remark-html-katex'
 import { ArticleResponse } from '../types/Response'
 import { Article } from '../types/Article'
-// import { accessToken } from '../token'
 
 
 export async function getPostsData() {
