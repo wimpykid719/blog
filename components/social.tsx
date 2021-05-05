@@ -7,12 +7,12 @@ import { SiFeedly } from "@react-icons/all-files/si/SiFeedly";
 
 
 
-export default function Social({ title, id }: { title:string; id: string }) {
+export default function Social({ title, id, topics }: { title:string; id: string; topics: string[] }) {
   return (
     <>
       <div className="flex max-w-sm flex-wrap justify-between mt-3">
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-1 p-3 bg-gray-light rounded-2xl">
-          <a href={`https://twitter.com/share?text=${title}&hashtags=react,nextjs&url=https://next-portfolio-blue.now.sh/posts/${id}&related=Unemployed_jp`}
+          <a href={`https://twitter.com/share?text=後で読む：${title}&hashtags=${topics}&url=https://next-portfolio-blue.now.sh/posts/${id}&related=Unemployed_jp`}
         target='_blank' rel='noopener noreferrer'>
             <FaTwitter />
           </a>

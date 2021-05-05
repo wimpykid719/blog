@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Navbar } from './menu';
 
 
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = '大学生だった'
 
 //homeの型定義の?は必須の引数でない時に付ける。
 export default function Layout({
@@ -19,7 +19,7 @@ export default function Layout({
                 <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="description"
-                    content="Learn how to build a personal website using Next.js"
+                    content="Zennに投稿した記事を使用して作成したオリジナルブログ、プログラミング技術に関する内容を投稿します。"
                 />
                 <meta
                     property="og:image"

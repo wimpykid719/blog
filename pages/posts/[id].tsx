@@ -28,7 +28,7 @@ export default function Post({
                 </div>
                 <div className="pt-7">
                     <p className="font-bold text-blue-darker">あとで読む</p>
-                    <Social title={postData.title} id={postData.id} /> 
+                    <Social title={postData.title} id={postData.id} topics={postData.topics} /> 
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: postData.content }} />
             </article>

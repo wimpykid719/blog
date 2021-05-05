@@ -9,6 +9,7 @@ import { UserResponse } from '../types/Response'
 import Layout from '../components/layout'
 import Date from '../components/date'
 import Topics from '../components/topics'
+import { siteTitle } from '../components/layout'
 
 
 
@@ -28,7 +29,7 @@ export default function Home({
     <Layout avatarUrl={userData.avatar_url}>
       <div className="lg:max-w-5xl lg:mx-auto">
         <Head>
-          <title>Hello</title>
+          <title>{siteTitle}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <ul className="mx-auto lg:flex lg:flex-wrap lg:justify-between lg:max-w-2xl xl:max-w-4xl">
