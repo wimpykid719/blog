@@ -9,12 +9,12 @@ import math from 'remark-math'
 import htmlKatex from 'remark-html-katex'
 import { ArticleResponse } from '../types/Response'
 import { Article } from '../types/Article'
-import { accessToken } from '../token'
+// import { accessToken } from '../token'
 
 
 export async function getPostsData() {
   const zennArticles: ArticleResponse[] = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles", {
-    headers: {"Authorization": accessToken}
+    headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
   })
     .then(res => {
         return res.json();
@@ -26,7 +26,7 @@ export async function getPostsData() {
     if (zennArticles) {
       return await Promise.all(zennArticles.map(async (article: ArticleResponse) => {
         const data = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/" + article.name, {
-          headers: {"Authorization": accessToken}
+          headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
         })
           .then(res => {
               return res.json();
