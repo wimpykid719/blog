@@ -28,9 +28,9 @@ export default function Layout({
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <div className="lg:flex">
+            <div className="xl:flex">
               <Navbar avatarUrl={avatarUrl}/>
-              <main className="lg:flex-1 lg:bg-earth-lighter">{children}</main>
+              <main className="lg:flex-1 bg-earth-lighter">{children}</main>
             </div>
         </div>
     )

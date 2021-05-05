@@ -22,14 +22,14 @@ export const Navbar = ({
       {/* 下記のコードは三項演算子を使用していてactiveがTrueなら空が適用される。それで要素が出てくる。最初はfalseで要素を隠す。 */}
       <nav className={`${
         active ? '' : '-translate-x-72'
-      } lg:flex flex-wrap bg-earth-light p-1.5 fixed z-10 w-72 transform transition-transform lg:static lg:translate-x-0 lg:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen rounded-3xl rounded-tl-none rounded-bl-none lg:rounded-none`}
+      } xl:flex flex-wrap bg-earth-light p-1.5 fixed z-10 w-72 transform transition-transform xl:static xl:translate-x-0 xl:bg-blue-light overflow-y-auto disable-scrollbars inset-y-0 min-h-screen rounded-3xl rounded-tl-none rounded-bl-none xl:rounded-none`}
       >
-        <div className="flex justify-end lg:hidden">
+        <div className="flex justify-end xl:hidden">
             <button
               className="inline-flex p-3 hover:bg-gray rounded outline-none text-blue-dark"
               onClick={handleClick}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 lg:h-8 lg:w-8" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
             </button>
@@ -78,12 +78,12 @@ export const Navbar = ({
           </div>
         </div>
       </nav>
-      <div className="bg-earth-lighter p-1.5 lg:hidden">
+      <div className="bg-earth-lighter p-1.5 xl:hidden">
         <button
-          className="inline-flex p-3 hover:bg-gray rounded outline-none"
+          className="inline-flex p-3 hover:bg-gray rounded outline-none lg:text-lg"
           onClick={handleClick}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 lg:h-10 lg:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
           </svg>
         </button>

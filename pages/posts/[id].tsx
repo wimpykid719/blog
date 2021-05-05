@@ -21,10 +21,13 @@ export default function Post({
             <Head>
                 <title>{postData.title}</title>
             </Head>
-            <article className="w-11/12 lg:max-w-4xl mx-auto mb-7">
+            <article className="w-11/12 lg:max-w-4xl mx-auto pb-7">
                 <h1>{postData.title}</h1>
                 <div>
                     <Date dateString={postData.date} />
+                </div>
+                <div className="pt-7">
+                    <p className="font-bold text-blue-darker">あとで読む</p>
                     <Social title={postData.title} id={postData.id} /> 
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: postData.content }} />
