@@ -2,6 +2,7 @@ import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 import prism from 'remark-prism'
+import gfm from 'remark-gfm'
 //マークダウンから数式を解析
 import math from 'remark-math'
 //解析された数式をkatexが読み込めるようにHTML変換する。
@@ -65,6 +66,7 @@ export async function getHtmlContent(article: Article) {
     .use(htmlKatex)
     .use(html)
     .use(prism)
+    .use(gfm)
     .process(article.content)
   const contentHtml = processedContent.toString()
   return {

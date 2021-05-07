@@ -5,36 +5,36 @@ import { FaGetPocket } from "@react-icons/all-files/fa/FaGetPocket";
 import { SiHatenabookmark } from "@react-icons/all-files/si/SiHatenabookmark";
 import { SiFeedly } from "@react-icons/all-files/si/SiFeedly";
 
-
+const websiteUrl = "https://techblog-pink.vercel.app/"
 
 export default function Social({ title, id, topics }: { title:string; id: string; topics: string[] }) {
   return (
     <>
       <div className="flex max-w-sm flex-wrap justify-between mt-3">
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-1 p-3 bg-gray-light rounded-2xl">
-          <a href={`https://twitter.com/share?text=後で読む：${title}&hashtags=${topics}&url=https://next-portfolio-blue.now.sh/posts/${id}&related=Unemployed_jp`}
+          <a href={`https://twitter.com/share?text=後で読む：${title}&hashtags=${topics}&url=${websiteUrl}posts/${id}&related=Unemployed_jp`}
         target='_blank' rel='noopener noreferrer'>
             <FaTwitter />
           </a>
         </button>
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-3 p-3 bg-gray-light rounded-2xl">
-          <a href={`http://www.facebook.com/share.php?u=https://next-portfolio-blue.now.sh/posts/${id}`} >
+          <a href={`http://www.facebook.com/share.php?u=${websiteUrl}posts/${id}`} >
             <FaFacebookSquare />
           </a>
         </button>
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-3 p-3 bg-gray-light rounded-2xl">
-          <a href={`https://b.hatena.ne.jp/entry/https://next-portfolio-blue.now.sh/posts/${id}`} data-hatena-bookmark-layout='touch-counter'
+          <a href={`https://b.hatena.ne.jp/entry/${websiteUrl}posts/${id}`} data-hatena-bookmark-layout='touch-counter'
             title={title} target='_blank' rel='noopener noreferrer'>
               <SiHatenabookmark />
           </a>
         </button>
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-3 p-3 bg-gray-light rounded-2xl">
-          <a href={`https://social-plugins.line.me/lineit/share?url=https://next-portfolio-blue.now.sh/posts/${id}`} target='_blank'>
+          <a href={`https://social-plugins.line.me/lineit/share?url=${websiteUrl}posts/${id}`} target='_blank'>
             <FaLine />
           </a>
         </button>
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-3 p-3 bg-gray-light rounded-2xl">
-          <a href={`http://getpocket.com/edit?url=https://next-portfolio-blue.now.sh/posts/${id}`} target='_blank' rel="nofollow">
+          <a href={`http://getpocket.com/edit?url=${websiteUrl}posts/${id}`} target='_blank' rel="nofollow">
             <FaGetPocket />
           </a>
         </button>

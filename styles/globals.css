@@ -51,6 +51,18 @@ p > a {
   @apply text-blue-dark;
 }
 
+table {
+  @apply mx-auto my-6 border-collapse leading-normal break-normal;
+}
+
+th {
+  @apply font-bold bg-blue-light text-blue-dark p-2 border border-gray-dark;
+}
+
+td {
+  @apply p-2 border border-gray-dark;
+}
+
 blockquote {
   @apply text-sm mx-auto my-6 border-2 border-r-0 border-b-0 border-t-0 border-blue text-gray-dark py-1 pl-3;
 }
