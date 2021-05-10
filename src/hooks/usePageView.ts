@@ -10,7 +10,7 @@ export default function usePageView() {
       return
     }
 
-    const handleRouteChange = (path) => {
+    const handleRouteChange = (path: string) => {
       gtag.pageview(path)
     }
     //componentDidMountの役割URLが変更されるたびにhandleRouteChangeが実行される。

@@ -31,11 +31,14 @@ export async function getPostsData() {
               return res.json();
           })
           .catch(err => {
-              console.log(err);
+              console.log(`アクセスに失敗した：${err}`);
           });
         const buffer = Buffer.from(data.content, 'base64');
         const fileContents = buffer.toString("utf-8");
         const matterResult = matter(fileContents)
+        if (!matterResult.data.published) {
+          return
+        }
         return {
           id: article.name.replace(/\.md$/, ''),
           ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; }),
@@ -44,7 +47,8 @@ export async function getPostsData() {
       }));
     }
   })(zennArticles);
-  return datas;
+  const removeFalsyDatas = datas.filter(Boolean)
+  return removeFalsyDatas;
 }
 
 export async function getSortedPostsData(articles: Article[]){
@@ -93,10 +97,7 @@ export function getPostData(articles: Article[], id: string) {
   })
 } 
 
-// if (mdObj.data.published) {
-//   datas[mdObj.data.title] = mdObj.content;
-//   keys.push(mdObj.data.title);
-// }
+
 // title: "tsconfig.json オプション入門" # 記事のタイトル
 // emoji: "🧐" # アイキャッチとして使われる絵文字（1文字だけ）
 // type: "tech" # tech: 技術記事 / idea: アイデア記事
