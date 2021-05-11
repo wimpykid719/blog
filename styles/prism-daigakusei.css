@@ -33,7 +33,6 @@ code[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  overflow-wrap: break-word;
 }
 /*::selectionはコピーする際に選択した要素*/
 pre[class*="language-"]::selection,
@@ -62,6 +61,7 @@ pre[class*="language-"] {
   border-radius: .2em;
   color: #112d4e;
   background: #f7fbfc;
+  overflow-wrap: break-word;
 }
 /*********************************************************
 * Tokens

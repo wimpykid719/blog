@@ -68,9 +68,9 @@ export async function getHtmlContent(article: Article) {
   const processedContent = await remark()
     .use(math)
     .use(htmlKatex)
-    .use(html)
     .use(prism)
     .use(gfm)
+    .use(html)
     .process(article.content)
   const contentHtml = processedContent.toString()
   return {
