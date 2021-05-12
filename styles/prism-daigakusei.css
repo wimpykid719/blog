@@ -16,7 +16,7 @@
 */
 pre[class*="language-"],
 code[class*="language-"] {
-  color: #769fcd;
+  color: #ffa646;
   font-size: 13px;
   text-shadow: none;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -34,13 +34,13 @@ code[class*="language-"] {
   -ms-hyphens: none;
   hyphens: none;
 }
-/*::selectionはコピーする際に選択した要素*/
+/*::selectionのコロン:の色*/
 pre[class*="language-"]::selection,
 code[class*="language-"]::selection,
 pre[class*="language-"]::mozselection,
 code[class*="language-"]::mozselection {
   text-shadow: none;
-  background: #b3d4fc;
+  background: #999999;
 }
 @media print {
   pre[class*="language-"],
@@ -53,7 +53,7 @@ pre[class*="language-"] {
   margin: .5em 0;
   overflow: auto;
   border-radius: .2em;
-  background: #1d233a;
+  background: #282a5d;
 }
 :not(pre) > code {
   font-size: 12px;
@@ -73,10 +73,10 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #93a1a1;
+  color: #626060;
 }
 .token.punctuation {
-  color: #85cdcb;
+  color: #999999;
 }
 .token.property,
 .token.tag,
@@ -85,7 +85,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #dd5c4a;
+  color: #b84283;
 }
 .token.selector,
 .token.attr-name,
@@ -93,28 +93,28 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #d8ba83;
+  color: #1abec1;
 }
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #aab8ba;
-  background: #1d233a;
+  color: #b07507;
+  background: #282a5d;
 }
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #41b3a3;
+  color: #dd4a68;
 }
 .token.function {
-  color: #e27d5f;
+  color: #52abff;
 }
 .token.regex,
 .token.important,
 .token.variable {
-  color: #e8a87b;
+  color: #ee9900;
 }
 .token.important,
 .token.bold {
@@ -142,8 +142,8 @@ pre[class*="language-"] > code[class*="language-"] {
   right: 0;
   padding: inherit 0;
   margin-top: 1em;
-  background: #112d4e;
-  box-shadow: inset 5px 0 0 #769fcd;
+  background: #161731;
+  box-shadow: inset 5px 0 0 #6e75f2;
   z-index: 0;
   pointer-events: none;
   line-height: inherit;
