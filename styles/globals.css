@@ -49,7 +49,7 @@ p {
 }
 
 p > a {
-  @apply text-blue-dark break-normal;
+  @apply text-blue-dark break-words;
 }
 
 table {
