@@ -69,9 +69,17 @@ blockquote {
 }
 
 article ul {
-  @apply pl-5;
+  @apply list-disc pl-5;
 }
 
 article ul > li {
-  @apply list-disc my-2;
+  @apply my-2;
+}
+
+article ol {
+  @apply list-decimal pl-5;
+}
+
+article ol > li {
+  @apply my-2;
 }
