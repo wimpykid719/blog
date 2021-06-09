@@ -48,3 +48,26 @@ export type UserResponse = {
   created_at: string;
   updated_at: string;
 }
+
+export type Webhook = {
+  head_commit: {
+    id: string;
+  }
+}
+
+export type Commits = {
+  files:[{
+    contents_url: string;
+  }]
+}
+
+export type Content = {
+  name: string;
+  path: string;
+  sha: string;
+  content: string;
+}
+
+export type QiitaPostRes = {
+  id: string;
+}

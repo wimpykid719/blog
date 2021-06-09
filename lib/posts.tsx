@@ -23,11 +23,14 @@ export async function getPostsData() {
     });
   const datas = await (async (zennArticles) => {
     if (zennArticles) {
-      return await Promise.all(zennArticles.map(async (article: ArticleResponse) => {
+      return await Promise.all(zennArticles.map( async (article: ArticleResponse) => {
         const data = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/" + article.name, {
           headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
         })
           .then(res => {
+              // ここでdataに格納してる。
+              // 後続にthenが続く場合は後続のthenに引数として渡す。
+              // なければ変数 dateに値を代入する。
               return res.json();
           })
           .catch(err => {
