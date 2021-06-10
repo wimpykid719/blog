@@ -62,6 +62,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   .catch(err => {
     console.log(err);
   });
+  console.log(`記事のid：${qiitaPostRes.id}`)
   return qiitaPostRes.id
 }
 
