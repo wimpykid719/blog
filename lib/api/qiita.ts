@@ -50,7 +50,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   console.log((`methodの確認${method}`))
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
-
+  console.log(jsonQiitaArticle)
   const qiitaPostRes: QiitaPostRes = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
