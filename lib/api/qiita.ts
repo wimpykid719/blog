@@ -48,9 +48,9 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   console.log(`urlの確認${url}`)
   const method = idArticle ? 'PATCH': 'POST';
   console.log((`methodの確認${method}`))
+  console.log(`記事のタイトル${qiitaArticle.title}`)
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
-  console.log(jsonQiitaArticle)
   const qiitaPostRes: QiitaPostRes = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
