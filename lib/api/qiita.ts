@@ -113,7 +113,7 @@ export async function getUpdatedFiles(payload: Webhook) {
       console.log(err);
     });
 
-    console.log(`fileJsonの中身${fileJson}`)
+    console.log(`fileJsonの中身${fileJson.name}`)
     
     const buffer = Buffer.from(fileJson.content, 'base64');
     const fileContents = buffer.toString("utf-8");
@@ -129,5 +129,6 @@ export async function getUpdatedFiles(payload: Webhook) {
       sha: fileJson.sha,
     }
   }))
+  console.log(`一番最初のtopics${files[0].topics}`)
   return files
 }
