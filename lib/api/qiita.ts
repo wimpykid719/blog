@@ -8,14 +8,16 @@ import { QiitaArticle } from '../../types/Article'
 
 
 
-
-
 //4 githubのリポジトリにqiitaIdを追加する。
-export async function writeQiitaId(file, qiitaId) {
+export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/contents/'
-  if(!file.qiitaId === qiitaId) {
-    let content = file.content
-    content.qiitaId = qiitaId
+  if(!(file.qiitaId === qiitaId)) {
+    const contentBeforeAddId = file.content
+    //markdownの文字列に正規表現でqiitaIdを追加する。
+    const contentAddId = contentBeforeAddId.replace(/(---[\s\S]*?qiitaId: )'{2}( [\s\S]*?---)/, `$1'${qiitaId}'$2`)
+    const buffer = Buffer.from(contentAddId, 'utf-8');
+    const content = buffer.toString("base64");
+
     const resRepo = await fetch(BASE_URL + file.path, {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
@@ -34,7 +36,7 @@ export async function writeQiitaId(file, qiitaId) {
     .catch(err => {
       console.log(err);
     });
-    console.log(`succeeded ${resRepo.message}`)
+    return `succeeded ${resRepo.message}`
   }
 }
 
@@ -60,7 +62,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   .catch(err => {
     console.log(err);
   });
-  return qiitaPostRes
+  return qiitaPostRes.id
 }
 
 //2 投稿・更新された記事をqiitaのフォーマットにする。
@@ -75,13 +77,14 @@ export function makeQiitaArticle(file: QiitaRepository) {
     'title': file.title,
     'tweet': true
   }
-  return { 'article':article, 'id':file.id }
+  return article
 }
 
 //1 githubから投稿・更新された記事を取得 webhookのデータが大事
 export async function getUpdatedFiles(payload: Webhook) {
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/commits/'
   const latestCommitsha: string = payload.head_commit.id
+  
   const updatedFileContents: Commits = await fetch(BASE_URL + latestCommitsha, {
     headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
   })
@@ -92,6 +95,14 @@ export async function getUpdatedFiles(payload: Webhook) {
     console.log(err);
   });
   const files = await Promise.all(updatedFileContents.files.map( async(updatedFile) => {
+    // statusが削除のファイルは無視する。
+    if(updatedFile.status === 'removed') {
+      return
+    }
+    // statusがremoved以外でも、拡張子がmdファイル以外の場合は取得しない
+    if (!/[\s\S]*?\.md/.test(updatedFile.filename)) {
+      return
+    }
     const fileJson: Content = await fetch(updatedFile.contents_url, {
       headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
     })
@@ -101,10 +112,7 @@ export async function getUpdatedFiles(payload: Webhook) {
     .catch(err => {
       console.log(err);
     });
-    // 拡張子がmdファイル以外の場合は取得しない
-    if (!/[\s\S]*?\.md/.test(fileJson.name)) {
-      return
-    }
+    
     const buffer = Buffer.from(fileJson.content, 'base64');
     const fileContents = buffer.toString("utf-8");
     const matterResult = matter(fileContents)

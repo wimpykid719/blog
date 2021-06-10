@@ -57,6 +57,8 @@ export type Webhook = {
 
 export type Commits = {
   files:[{
+    filename: string;
+    status: string;
     contents_url: string;
   }]
 }

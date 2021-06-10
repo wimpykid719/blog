@@ -12,18 +12,16 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
   
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
-    const articles = await Promise.all(files.map((file) => {
-      return makeQiitaArticle(file)
-    }))
-    const postQiitaReses = await Promise.all(articles.map((article) => {
-      return postQiita(article.article, article.id)
-    }))
-    //そもそもここのfileとidは一致してるのか...
-    files.forEach((file) => {
-      postQiitaReses.forEach((postQiitaRes) => {
-        writeQiitaId(file, postQiitaRes.id)
-      })
-    })
+    if (files) {
+      await Promise.all(files.map( async(file) => {
+        const article = makeQiitaArticle(file)
+        const createdQiitaId = await postQiita(article, file.qiitaId)
+        const status = writeQiitaId(file, createdQiitaId)
+        res.status(201).json({ status: status })
+      }))
+    } else {
+      res.status(200).json({ status: 'noting to post' })
+    }
     
     //通信が成功したらstatusコード201とJsonを返す。
     // res.status(201).json({ body: req.body })

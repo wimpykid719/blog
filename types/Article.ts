@@ -23,6 +23,7 @@ export type QiitaRepository = {
   sha: string;
 }
 
+
 export type QiitaArticle = {
   body: string;
   private: boolean;
