@@ -129,6 +129,6 @@ export async function getUpdatedFiles(payload: Webhook) {
       sha: fileJson.sha,
     }
   }))
-  console.log(`一番最初のtopics${files[0].topics}`)
+  console.log(`一番最初のtopics${files[0]}`)
   return files
 }
