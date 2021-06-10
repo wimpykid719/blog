@@ -43,9 +43,12 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
 //3 qiitaに投稿する。
 export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   const url = idArticle ? 
-    'https://qiita.com/api/v2/items' + idArticle :
+    'https://qiita.com/api/v2/items' + '/' +idArticle :
     'https://qiita.com/api/v2/items';
+  console.log(`urlの確認${url}`)
   const method = idArticle ? 'PATCH': 'POST';
+  console.log((`methodの確認${method}`))
+  
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
 
   const qiitaPostRes: QiitaPostRes = await fetch(url, {
