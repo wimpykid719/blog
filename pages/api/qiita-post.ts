@@ -12,7 +12,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
   
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
-    console.log(files)
+    console.log(`filesの中身：${files}`)
     if (files) {
       await Promise.all(files.map( async(file) => {
         const article = makeQiitaArticle(file)

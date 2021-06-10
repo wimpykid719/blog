@@ -112,6 +112,8 @@ export async function getUpdatedFiles(payload: Webhook) {
     .catch(err => {
       console.log(err);
     });
+
+    console.log(`fileJsonの中身${fileJson}`)
     
     const buffer = Buffer.from(fileJson.content, 'base64');
     const fileContents = buffer.toString("utf-8");
