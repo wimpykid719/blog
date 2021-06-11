@@ -10,8 +10,11 @@ import { QiitaArticle } from '../../types/Article'
 
 //4 githubのリポジトリにqiitaIdを追加する。
 export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
+  console.log(`qiitaからのID： ${qiitaId}`)
+  console.log(`fileからのID： ${file.qiitaId}`)
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/contents/'
   if(!(file.qiitaId === qiitaId)) {
+    console.log('ここ通る?')
     const contentBeforeAddId = file.content
     //markdownの文字列に正規表現でqiitaIdを追加する。
     const contentAddId = contentBeforeAddId.replace(/(---[\s\S]*?qiitaId: )'{2}( [\s\S]*?---)/, `$1'${qiitaId}'$2`)
@@ -36,6 +39,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
     .catch(err => {
       console.log(err);
     });
+    console.log(resRepo.message);
     return `succeeded ${resRepo.message}`
   }
 }
