@@ -5,6 +5,9 @@ import { makeQiitaArticle } from '../../lib/api/qiita'
 import { postQiita } from '../../lib/api/qiita'
 import { writeQiitaId } from '../../lib/api/qiita'
 
+// import { QiitaPostRes } from '../../types/Response'
+// import { QiitaPostResError } from '../../types/Response'
+
 
 
 
@@ -17,8 +20,16 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
       await Promise.all(files.map( async(file) => {
         const article = makeQiitaArticle(file)
         const createdQiitaId = await postQiita(article, file.qiitaId)
-        const status = writeQiitaId(file, createdQiitaId)
-        res.status(201).json({ status: status })
+        if (!createdQiitaId) {
+          res.status(200).json({ status: 'noting to update' })
+          return
+        } 
+        const status = await writeQiitaId(file, createdQiitaId)
+        if (status) {
+          res.status(201).json({ status: status })
+        } else {
+          res.status(502).json({ status: 'failed to update repository' })
+        }
       }))
     } else {
       res.status(200).json({ status: 'noting to post' })

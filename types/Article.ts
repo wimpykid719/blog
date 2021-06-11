@@ -1,3 +1,5 @@
+import { QiitaArticleGetRes } from './Response'
+
 export type Article = {
   id: string;
   title: string;
@@ -24,13 +26,13 @@ export type QiitaRepository = {
 }
 
 
-export type QiitaArticle = {
-  body: string;
-  private: boolean;
-  tags: {name: string}[];
-  title: string;
+
+type QiitaArticleTwitterSettings = {
   tweet: boolean;
 }
+
+//　こんな風に継承できるけど分かりづらいな
+export type QiitaArticle = QiitaArticleTwitterSettings & QiitaArticleGetRes
 
 // export type ArticleContent = ArticleTitle &{
 //   content: string;

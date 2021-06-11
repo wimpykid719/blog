@@ -2,13 +2,16 @@ import matter from 'gray-matter'
 import { Webhook } from '../../types/Response'
 import { Commits } from '../../types/Response'
 import { Content } from '../../types/Response'
+import { QiitaArticleGetRes } from '../../types/Response'
 import { QiitaPostRes } from '../../types/Response'
+import { QiitaPostResError } from '../../types/Response'
+import { PushRes } from '../../types/Response'
 import { QiitaRepository } from '../../types/Article'
 import { QiitaArticle } from '../../types/Article'
 
 
 
-//4 githubのリポジトリにqiitaIdを追加する。
+//5 githubのリポジトリにqiitaIdを追加する。
 export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   console.log(`qiitaからのID： ${qiitaId}`)
   console.log(`fileからのID： ${file.qiitaId}`)
@@ -21,7 +24,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
     const buffer = Buffer.from(contentAddId, 'utf-8');
     const content = buffer.toString("base64");
 
-    const resRepo = await fetch(BASE_URL + file.path, {
+    const resRepo: PushRes = await fetch(BASE_URL + file.path, {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': `token ${process.env.GITHUB_TOKEN}`,
@@ -34,15 +37,21 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
       }`,
     })
     .then(res => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
     })
     .catch(err => {
       console.log(err);
     });
-    console.log(resRepo.message);
-    return `succeeded ${resRepo.message}`
+    if (resRepo){
+      console.log(resRepo.commit.message);
+      return `succeeded ${resRepo.commit.message}`
+    }
   }
 }
+
+
 
 //3 qiitaに投稿する。
 export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
@@ -50,6 +59,39 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     'https://qiita.com/api/v2/items' + '/' +idArticle :
     'https://qiita.com/api/v2/items';
   console.log(`urlの確認${url}`)
+
+  const patchOk = ( async(url, qiitaArticle, idArticle) => {
+    if(idArticle) {
+      const qiitaArticleGetRes: QiitaArticleGetRes = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.QIITA_TOKEN}`,
+        },
+        method: 'GET',
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      if(!(qiitaArticle.title === qiitaArticleGetRes.title)) {
+        return true
+      }
+      if(!(qiitaArticle.tags === qiitaArticleGetRes.tags)) {
+        return true
+      }
+      if(!(qiitaArticle.body === qiitaArticleGetRes.body)) {
+        return true
+      }
+    }
+  })(url, qiitaArticle, idArticle)
+  
+  if (!patchOk) {
+    return
+  }
   const method = idArticle ? 'PATCH': 'POST';
   console.log((`methodの確認${method}`))
   console.log(`記事のタイトル${qiitaArticle.title}`)
@@ -57,7 +99,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
 
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
-  const qiitaPostRes: QiitaPostRes = await fetch(url, {
+  const qiitaPostRes: QiitaPostRes | QiitaPostResError = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.QIITA_TOKEN}`,
@@ -66,13 +108,22 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     body: jsonQiitaArticle,
   })
   .then(res => {
-    return res.json();
+    res.json()
+    .then( res => {
+      console.log(`書き込みでエラーが起きてる：${res.message}`)
+    })
+    if (res.ok) {
+      return res.json();
+    }
   })
   .catch(err => {
     console.log(err);
   });
-  console.log(`記事のid：${qiitaPostRes.id}`)
-  return qiitaPostRes.id
+  if (qiitaPostRes.type === 'successed') {
+    console.log(`記事のid：${qiitaPostRes.id}`)
+    return qiitaPostRes.id
+  }
+  
 }
 
 //2 投稿・更新された記事をqiitaのフォーマットにする。
@@ -99,7 +150,9 @@ export async function getUpdatedFiles(payload: Webhook) {
     headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
   })
   .then(res => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
   })
   .catch(err => {
     console.log(err);
@@ -117,7 +170,9 @@ export async function getUpdatedFiles(payload: Webhook) {
       headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
     })
     .then(res => {
-      return res.json();
+      if (res.ok) {
+        return res.json();
+      }
     })
     .catch(err => {
       console.log(err);

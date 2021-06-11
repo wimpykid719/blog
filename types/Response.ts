@@ -70,6 +70,27 @@ export type Content = {
   content: string;
 }
 
+export type QiitaArticleGetRes = {
+  body: string;
+  private: boolean;
+  tags: {name: string}[];
+  title: string;
+
+}
+
 export type QiitaPostRes = {
+  type: "successed";
   id: string;
 }
+
+export type QiitaPostResError = {
+  type: "error";
+  message: string;
+}
+
+export type PushRes = {
+  commit: {
+    message: string;
+  }
+}
+
