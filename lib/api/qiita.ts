@@ -13,9 +13,9 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   console.log(`qiitaからのID： ${qiitaId}`)
   console.log(`fileからのID： ${file.qiitaId}`)
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/contents/'
+  const contentBeforeAddId = file.content
   if(!(file.qiitaId === qiitaId)) {
     console.log(`sha：${file.sha}`)
-    const contentBeforeAddId = file.content
     //markdownの文字列に正規表現でqiitaIdを追加する。
     const contentAddId = contentBeforeAddId.replace(/(---[\s\S]*?qiitaId: )'{2}( [\s\S]*?---)/, `$1'${qiitaId}'$2`)
     const buffer = Buffer.from(contentAddId, 'utf-8');
