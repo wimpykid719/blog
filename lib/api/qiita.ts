@@ -40,6 +40,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
       if (res.ok) {
         return res.json();
       }
+      return
     })
     .catch(err => {
       console.log(err);
@@ -48,6 +49,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
       console.log(resRepo.commit.message);
       return `succeeded ${resRepo.commit.message}`
     }
+    return
   }
 }
 
@@ -108,20 +110,16 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     body: jsonQiitaArticle,
   })
   .then(res => {
-    res.json()
-    .then( res => {
-      console.log(`書き込みでエラーが起きてる：${res.message}`)
-    })
-    if (res.ok) {
-      return res.json();
-    }
+    return res.json();
   })
   .catch(err => {
     console.log(err);
   });
   if (qiitaPostRes.type === 'successed') {
     console.log(`記事のid：${qiitaPostRes.id}`)
-    return qiitaPostRes.id
+    return qiitaPostRes
+  } else {
+    return qiitaPostRes
   }
   
 }

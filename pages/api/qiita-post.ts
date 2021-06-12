@@ -15,16 +15,20 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
   
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
-    console.log(`filesの中身：${files}`)
     if (files) {
       await Promise.all(files.map( async(file) => {
         const article = makeQiitaArticle(file)
-        const createdQiitaId = await postQiita(article, file.qiitaId)
-        if (!createdQiitaId) {
-          res.status(200).json({ status: 'noting to update' })
+        const qiitaPostRes = await postQiita(article, file.qiitaId)
+        if (!qiitaPostRes) {
+          res.status(200).json({ status: 'noting to post' })
           return
-        } 
-        const status = await writeQiitaId(file, createdQiitaId)
+        }
+        if (qiitaPostRes.type === 'error') {
+          res.status(502).json({ status: `${qiitaPostRes.message}` })
+          return
+        }
+        console.log(`qiitaIdの中身：${qiitaPostRes.id}`)
+        const status = await writeQiitaId(file, qiitaPostRes.id)
         if (status) {
           res.status(201).json({ status: status })
         } else {
