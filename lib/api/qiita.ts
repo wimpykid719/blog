@@ -74,6 +74,8 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
       .then(res => {
         if (res.ok) {
           return res.json();
+        } else {
+          return false
         }
       })
       .catch(err => {
@@ -88,6 +90,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
       if(!(qiitaArticle.body === qiitaArticleGetRes.body)) {
         return true
       }
+      return false
     }
   })(url, qiitaArticle, idArticle)
   
