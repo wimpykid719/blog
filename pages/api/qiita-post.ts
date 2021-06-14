@@ -15,7 +15,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
   
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
-    console.log(`空かもしれないfilesの中身${files.length}`)
+    console.log(`空かもしれないfilesの中身${files[1]}`)
     if (!(files.length === 0)) {
       console.log('file.length聞いてないよ')
       const statuses = await Promise.all(files.map( async(file) => {
