@@ -21,7 +21,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     // udefinedが配列に含まれるので取り除く
     const filesRemovedUndefined = files.filter(v => v)
     console.log(`filesフィルタ後の中身：${filesRemovedUndefined[0]}`)
-    console.log(`filesフィルタ後の長さ：${files.length}`)
+    console.log(`filesフィルタ後の長さ：${filesRemovedUndefined.length}`)
     // filesRemovedUndefinedに値があれば処理を続ける。
     if (filesRemovedUndefined.length) {
       console.log('通った')
@@ -43,6 +43,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
         }
         console.log(`qiitaIdの中身：${qiitaPostRes.id}`)
         // 上記の分岐で引っ掛からなければwriteQiitaIdを実行できる。
+        console.log('書き換えが実行される。')
         const status = await writeQiitaId(file, qiitaPostRes.id)
         // 書き換えが成功すればそれを伝える
         if (status) {

@@ -154,7 +154,7 @@ export function makeQiitaArticle(file: QiitaRepository) {
     'private': false,
     'tags': tags,
     'title': file.title,
-    'tweet': true
+    'tweet': false
   }
   return article
 }
