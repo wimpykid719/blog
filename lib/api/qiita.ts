@@ -61,7 +61,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   console.log(`urlの確認${url}`)
 
   //ここの実行が飛ばされてる???
-  const patchPostOk = ( async(url, qiitaArticle, idArticle) => {
+  const patchPostOk = await ( async(url, qiitaArticle, idArticle) => {
     console.log('ここ通ってる?')
     // idがあるやつはすでに投稿されている記事なので、記事の更新かそれとも2回目のフックか判定する。
     if(idArticle) {
