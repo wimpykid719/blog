@@ -19,6 +19,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
       const statuses = await Promise.all(files.map( async(file) => {
         console.log(`API側からのtopics${file.topics}`)
         const article = makeQiitaArticle(file)
+        console.log(`API側からのtags${article.tags}`)
         const qiitaPostRes = await postQiita(article, file.qiitaId)
         // falseの場合はwebhookの2回目の通信になるのでここで処理を止める。
         if (!qiitaPostRes) {

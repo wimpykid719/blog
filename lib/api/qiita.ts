@@ -117,7 +117,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
 
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
-  console.log(jsonQiitaArticle)
+  console.log('文字列化出来てるよ')
   const qiitaPostRes: QiitaPostRes | QiitaResError = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
