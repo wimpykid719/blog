@@ -127,9 +127,11 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     body: jsonQiitaArticle,
   })
   .then(res => {
+    console.log(`成功`)
     return res.json();
   })
   .catch(err => {
+    console.log(`失敗`)
     console.log(err);
   });
   if (qiitaPostRes.type === 'successed') {
