@@ -15,13 +15,14 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
   
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
-    console.log(`filesフィルタ前の中身${files}`)
-    console.log(`files長さ${files.length}`)
+    console.log(`filesフィルタ前の中身：${files[0]}`)
+    console.log(`files長さ：${files.length}`)
 
     // udefinedが配列に含まれるので取り除く
     const filesRemovedUndefined = files.filter(v => v)
-    console.log(`filesフィルタ後の中身${filesRemovedUndefined}`)
-    console.log(`filesフィルタ後の長さ${files.length}`)
+    console.log(`filesフィルタ後の中身：${filesRemovedUndefined[0]}`)
+    console.log(`filesフィルタ後の長さ：${files.length}`)
+    // filesRemovedUndefinedに値があれば処理を続ける。
     if (filesRemovedUndefined.length) {
       console.log('通った')
       const statuses = await Promise.all(files.map( async(file) => {
