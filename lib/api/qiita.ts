@@ -60,8 +60,9 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     'https://qiita.com/api/v2/items';
   console.log(`urlの確認${url}`)
 
+  //ここの実行が飛ばされてる???
   const patchPostOk = ( async(url, qiitaArticle, idArticle) => {
-
+    console.log('ここ通ってる?')
     // idがあるやつはすでに投稿されている記事なので、記事の更新かそれとも2回目のフックか判定する。
     if(idArticle) {
       // 記事が存在するのか取得する。記事があるならJsonが返る。
@@ -106,6 +107,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     return true
   })(url, qiitaArticle, idArticle)
   
+  console.log(`投稿できるか確認${patchPostOk}`)
   if (!patchPostOk) {
     return false
   }
