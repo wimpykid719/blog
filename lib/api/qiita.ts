@@ -4,7 +4,7 @@ import { Commits } from '../../types/Response'
 import { Content } from '../../types/Response'
 import { QiitaArticleGetRes } from '../../types/Response'
 import { QiitaPostRes } from '../../types/Response'
-import { QiitaPostResError } from '../../types/Response'
+import { QiitaResError } from '../../types/Response'
 import { PushRes } from '../../types/Response'
 import { QiitaRepository } from '../../types/Article'
 import { QiitaArticle } from '../../types/Article'
@@ -17,6 +17,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   console.log(`fileからのID： ${file.qiitaId}`)
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/contents/'
   const contentBeforeAddId = file.content
+  // fileのidは空か同じものが入っているので、一致しなければ新規投稿を意味する。
   if(!(file.qiitaId === qiitaId)) {
     console.log(`sha：${file.sha}`)
     //markdownの文字列に正規表現でqiitaIdを追加する。
@@ -24,7 +25,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
     const buffer = Buffer.from(contentAddId, 'utf-8');
     const content = buffer.toString("base64");
 
-    const resRepo: PushRes = await fetch(BASE_URL + file.path, {
+    const resRepo: PushRes | undefined = await fetch(BASE_URL + file.path, {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
         'Authorization': `token ${process.env.GITHUB_TOKEN}`,
@@ -45,12 +46,9 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
     .catch(err => {
       console.log(err);
     });
-    if (resRepo){
-      console.log(resRepo.commit.message);
-      return `succeeded ${resRepo.commit.message}`
-    }
-    return
+    return resRepo
   }
+  return
 }
 
 
@@ -62,9 +60,12 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     'https://qiita.com/api/v2/items';
   console.log(`urlの確認${url}`)
 
-  const patchOk = ( async(url, qiitaArticle, idArticle) => {
+  const patchPostOk = ( async(url, qiitaArticle, idArticle) => {
+
+    // idがあるやつはすでに投稿されている記事なので、記事の更新かそれとも2回目のフックか判定する。
     if(idArticle) {
-      const qiitaArticleGetRes: QiitaArticleGetRes = await fetch(url, {
+      // 記事が存在するのか取得する。記事があるならJsonが返る。
+      const qiitaArticleGetRes: QiitaArticleGetRes | undefined = await fetch(url, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${process.env.QIITA_TOKEN}`,
@@ -75,36 +76,46 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
         if (res.ok) {
           return res.json();
         } else {
-          return false
+          return
         }
       })
       .catch(err => {
         console.log(err);
       })
+      // もしなければidはあるが記事はないことになる。つまりidが間違っている。
+      if (!qiitaArticleGetRes) {
+        return false
+      }
+      // idがあり、アップ予定の記事タイトルと元々の記事タイトルが違う。これは更新になる。
       if(!(qiitaArticle.title === qiitaArticleGetRes.title)) {
         return true
       }
+      // idがあり、アップ予定の記事タグと元々の記事タグが違う。これは更新になる。
+
       if(!(qiitaArticle.tags === qiitaArticleGetRes.tags)) {
         return true
       }
+      // idがあり、アップ予定の記事と元々の記事が違う。これは更新になる。
       if(!(qiitaArticle.body === qiitaArticleGetRes.body)) {
         return true
       }
+      // idがあって変更が確認されない場合は2回目のwebhookによるものだから処理を止める必要がある。
       return false
     }
+    // idがないやつは新規投稿する。
+    return true
   })(url, qiitaArticle, idArticle)
   
-  if (!patchOk) {
-    return
+  if (!patchPostOk) {
+    return false
   }
   const method = idArticle ? 'PATCH': 'POST';
   console.log((`methodの確認${method}`))
   console.log(`記事のタイトル${qiitaArticle.title}`)
-  console.log(`変数${process.env.QIITA_TOKEN}`)
 
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
-  const qiitaPostRes: QiitaPostRes | QiitaPostResError = await fetch(url, {
+  const qiitaPostRes: QiitaPostRes | QiitaResError = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.QIITA_TOKEN}`,
@@ -147,13 +158,14 @@ export async function getUpdatedFiles(payload: Webhook) {
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/commits/'
   const latestCommitsha: string = payload.head_commit.id
   
-  const updatedFileContents: Commits = await fetch(BASE_URL + latestCommitsha, {
+  const updatedFileContents: Commits | undefined = await fetch(BASE_URL + latestCommitsha, {
     headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
   })
   .then(res => {
     if (res.ok) {
       return res.json();
     }
+    return
   })
   .catch(err => {
     console.log(err);
@@ -167,13 +179,14 @@ export async function getUpdatedFiles(payload: Webhook) {
     if (!/[\s\S]*?\.md/.test(updatedFile.filename)) {
       return
     }
-    const fileJson: Content = await fetch(updatedFile.contents_url, {
+    const fileJson: Content | undefined = await fetch(updatedFile.contents_url, {
       headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
     })
     .then(res => {
       if (res.ok) {
         return res.json();
       }
+      return
     })
     .catch(err => {
       console.log(err);
@@ -195,6 +208,5 @@ export async function getUpdatedFiles(payload: Webhook) {
       sha: fileJson.sha,
     }
   }))
-  console.log(`一番最初のtopics${files[0]}`)
   return files
 }
