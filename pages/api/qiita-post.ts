@@ -15,7 +15,8 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
   
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
-    if (files) {
+    console.log(`空かもしれないfilesの中身${files}`)
+    if (files.length) {
       const statuses = await Promise.all(files.map( async(file) => {
         console.log(`API側からのtopics${file.topics}`)
         const article = makeQiitaArticle(file)
