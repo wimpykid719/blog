@@ -207,6 +207,7 @@ export async function getUpdatedFiles(payload: Webhook) {
     if (!matterResult.data.published) {
       return
     }
+    console.log('マークダウンを変換する。')
     return {
       id: fileJson.name.replace(/\.md$/, ''),
       ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; qiitaId: string; }),
@@ -215,5 +216,6 @@ export async function getUpdatedFiles(payload: Webhook) {
       sha: fileJson.sha,
     }
   }))
+  console.log(`変換したfilesの先頭ファイル名：${files[0].id}`)
   return files
 }
