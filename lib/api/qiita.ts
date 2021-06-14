@@ -179,6 +179,7 @@ export async function getUpdatedFiles(payload: Webhook) {
   const files = await Promise.all(updatedFileContents.files.map( async(updatedFile) => {
     // statusが削除のファイルは無視する。
     if(updatedFile.status === 'removed') {
+      console.log('removedのステータスなのでファイルを弾いた')
       return
     }
     // statusがremoved以外でも、拡張子がmdファイル以外の場合は取得しない
