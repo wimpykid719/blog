@@ -216,6 +216,5 @@ export async function getUpdatedFiles(payload: Webhook) {
       sha: fileJson.sha,
     }
   }))
-  console.log(`変換したfilesの先頭ファイル名：${files[0].id}`)
   return files
 }
