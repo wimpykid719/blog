@@ -17,7 +17,9 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     const files = await getUpdatedFiles(req.body)
     // udefinedが配列に含まれるので取り除く
     const filesRemovedUndefined = files.filter(v => v)
+    console.log(`filesの中身${filesRemovedUndefined}`)
     if (filesRemovedUndefined.length) {
+      console.log('通った')
       const statuses = await Promise.all(files.map( async(file) => {
         console.log(`API側からのtopics${file.topics}`)
         const article = makeQiitaArticle(file)
