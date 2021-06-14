@@ -32,7 +32,7 @@ type QiitaArticleTwitterSettings = {
 }
 
 //　こんな風に継承できるけど分かりづらいな
-export type QiitaArticle = QiitaArticleTwitterSettings & QiitaArticleGetRes
+export type QiitaArticle = QiitaArticleGetRes & QiitaArticleTwitterSettings
 
 // export type ArticleContent = ArticleTitle &{
 //   content: string;
