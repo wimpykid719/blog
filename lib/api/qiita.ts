@@ -140,7 +140,8 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
 
 //2 投稿・更新された記事をqiitaのフォーマットにする。
 export function makeQiitaArticle(file: QiitaRepository) {
-  console.log(`topics： ${file.topics}`)
+  console.log('ここがエラーのtopicsです。')
+  // console.log(`topics： ${file.topics}`)
   const tags = file.topics.map((topic: string) => {
     return {'name': topic}
   })
