@@ -172,7 +172,7 @@ export async function getUpdatedFiles(payload: Webhook) {
   .catch(err => {
     console.log(err);
   });
-  const files = await Promise.all(updatedFileContents.files.map( async(updatedFile) => {
+  const files: QiitaRepository[] | undefined[] = await Promise.all(updatedFileContents.files.map( async(updatedFile) => {
     // statusが削除のファイルは無視する。
     if(updatedFile.status === 'removed') {
       console.log('removedのステータスなのでファイルを弾いた')
