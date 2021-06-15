@@ -36,12 +36,6 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
           res.status(200).json({ status: 'notting to upadate posts' })
           return
         }
-        // 投稿が上手くいかなかったためにエラーが起きた
-        if (qiitaPostRes.type === 'error') {
-          res.status(502).json({ status: `${qiitaPostRes.message}` })
-          return
-        }
-        console.log(`qiitaIdの中身：${qiitaPostRes.id}`)
         // 上記の分岐で引っ掛からなければwriteQiitaIdを実行できる。
         console.log('書き換えが実行される。')
         const status = await writeQiitaId(file, qiitaPostRes.id)

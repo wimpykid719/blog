@@ -118,7 +118,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
   console.log('文字列化出来てるよ')
-  const qiitaPostRes: QiitaPostRes | QiitaResError = await fetch(url, {
+  const qiitaPostRes: QiitaPostRes | undefined = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.QIITA_TOKEN}`,
@@ -127,20 +127,15 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     body: jsonQiitaArticle,
   })
   .then(res => {
-    console.log(`成功`)
-    return res.json();
+    if(res.ok) {
+      return res.json();
+    }
+    return
   })
   .catch(err => {
-    console.log(`失敗`)
     console.log(err);
   });
-  if (qiitaPostRes.type === 'successed') {
-    console.log(`記事のid：${qiitaPostRes.id}`)
-    return qiitaPostRes
-  } else {
-    return qiitaPostRes
-  }
-  
+  return qiitaPostRes
 }
 
 //2 投稿・更新された記事をqiitaのフォーマットにする。
