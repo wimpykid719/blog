@@ -16,7 +16,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   console.log(`qiitaからのID： ${qiitaId}`)
   console.log(`fileからのID： ${file.qiitaId}`)
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/contents/'
-  const contentBeforeAddId = file.content
+  const contentBeforeAddId = file.markdownContents
   // fileのidは空か同じものが入っているので、一致しなければ新規投稿を意味する。
   if(!(file.qiitaId === qiitaId)) {
     console.log(`sha：${file.sha}`)
@@ -197,8 +197,8 @@ export async function getUpdatedFiles(payload: Webhook) {
     console.log(`fileJsonの中身${fileJson.name}`)
     
     const buffer = Buffer.from(fileJson.content, 'base64');
-    const fileContents = buffer.toString("utf-8");
-    const matterResult = matter(fileContents)
+    const markdownContents = buffer.toString("utf-8");
+    const matterResult = matter(markdownContents)
     if (!matterResult.data.published) {
       return
     }
@@ -209,6 +209,7 @@ export async function getUpdatedFiles(payload: Webhook) {
       content: matterResult.content,
       path: fileJson.path,
       sha: fileJson.sha,
+      markdownContents: markdownContents,
     }
   }))
   return files

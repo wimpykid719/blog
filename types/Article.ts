@@ -23,6 +23,7 @@ export type QiitaRepository = {
   content: string;
   path: string;
   sha: string;
+  markdownContents: string;
 }
 
 
