@@ -197,7 +197,7 @@ export async function getUpdatedFiles(payload: Webhook) {
     console.log(`fileJsonの中身${fileJson.name}`)
     
     const buffer = Buffer.from(fileJson.content, 'base64');
-    const fileContents = buffer.toString("utf-8");
+    const fileContents = buffer.toString("utf8");
     const matterResult = matter(fileContents)
     if (!matterResult.data.published) {
       return
