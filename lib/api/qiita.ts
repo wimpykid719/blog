@@ -21,7 +21,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   if(!(file.qiitaId === qiitaId)) {
     console.log(`sha：${file.sha}`)
     //markdownの文字列に正規表現でqiitaIdを追加する。
-    const contentAddId = contentBeforeAddId.replace(/(---[\s\S]*?qiitaId: )\'{2}( [\s\S]*?---)/, `$1'${qiitaId}'$2`)
+    const contentAddId = contentBeforeAddId.replace(/(?<=---[\s\S]*?\nqiitaId:\s*').*?(?='[\s\S]*?---)/, `${qiitaId}`)
     const buffer = Buffer.from(contentAddId, 'utf-8');
     const content = buffer.toString("base64");
 
