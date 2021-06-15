@@ -58,11 +58,10 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   const url = idArticle ? 
     'https://qiita.com/api/v2/items' + '/' +idArticle :
     'https://qiita.com/api/v2/items';
-  console.log(`urlの確認${url}`)
+  console.log(`urlの確認：${url}`)
 
   //ここの実行が飛ばされてる???
   const patchPostOk = await ( async(url, qiitaArticle, idArticle) => {
-    console.log('ここ通ってる?')
     // idがあるやつはすでに投稿されている記事なので、記事の更新かそれとも2回目のフックか判定する。
     if(idArticle) {
       // 記事が存在するのか取得する。記事があるならJsonが返る。
@@ -107,17 +106,16 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     return true
   })(url, qiitaArticle, idArticle)
   
-  console.log(`投稿できるか確認${patchPostOk}`)
+  console.log(`投稿できるか確認：${patchPostOk}`)
   if (!patchPostOk) {
     return false
   }
   const method = idArticle ? 'PATCH': 'POST';
-  console.log((`methodの確認${method}`))
-  console.log(`記事のタイトル${qiitaArticle.title}`)
+  console.log((`methodの確認：${method}`))
+  console.log(`記事のタイトル：${qiitaArticle.title}`)
 
   
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
-  console.log('文字列化出来てるよ')
   const qiitaPostRes: QiitaPostRes | undefined = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
@@ -140,8 +138,6 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
 
 //2 投稿・更新された記事をqiitaのフォーマットにする。
 export function makeQiitaArticle(file: QiitaRepository) {
-  console.log('ここがエラーのtopicsです。')
-  // console.log(`topics： ${file.topics}`)
   const tags = file.topics.map((topic: string) => {
     return {'name': topic}
   })
@@ -150,7 +146,7 @@ export function makeQiitaArticle(file: QiitaRepository) {
     'private': false,
     'tags': tags,
     'title': file.title,
-    'tweet': false
+    'tweet': true
   }
   return article
 }
@@ -195,7 +191,7 @@ export async function getUpdatedFiles(payload: Webhook) {
       console.log(err);
     });
 
-    console.log(`fileJsonの中身${fileJson.name}`)
+    console.log(`fileJsonの中身：${fileJson.name}`)
     
     const buffer = Buffer.from(fileJson.content, 'base64');
     const markdownContents = buffer.toString("utf-8");
@@ -203,7 +199,6 @@ export async function getUpdatedFiles(payload: Webhook) {
     if (!matterResult.data.published) {
       return
     }
-    console.log('マークダウンを変換する。')
     return {
       id: fileJson.name.replace(/\.md$/, ''),
       ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; qiitaId: string; }),
