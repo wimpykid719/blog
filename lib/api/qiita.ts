@@ -104,11 +104,10 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
       }
       // idがあって変更が確認されない場合は2回目のwebhookによるものだから処理を止める必要がある。
       return false
-    } else {
-      // idがないやつは新規投稿する。
-      console.log('記事投稿')
-      return true
     }
+    // idがないやつは新規投稿する。
+    console.log('記事投稿')
+    return true
   })(url, qiitaArticle, idArticle)
   
   console.log(`投稿できるか確認：${patchPostOk}`)
