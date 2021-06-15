@@ -25,7 +25,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     // filesRemovedUndefinedに値があれば処理を続ける。
     if (filesRemovedUndefined.length) {
       const statuses = await Promise.all(files.map( async(file) => {
-        console.log(`API側からのtopics${file.topics}`)
+        // console.log(`API側からのtopics${file.topics}`)
         const article = makeQiitaArticle(file)
         console.log(`API側からのtags${article.tags}`)
         const qiitaPostRes = await postQiita(article, file.qiitaId)
