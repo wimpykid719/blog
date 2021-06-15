@@ -34,23 +34,24 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
         if (!qiitaPostRes) {
           // 多分これが実行された時点で処理止まる気がする。レスポンス返してるから
           return res.status(200).json({ status: 'notting to upadate posts' })
-        }
-        // 上記の分岐で引っ掛からなければwriteQiitaIdを実行できる。
-        console.log('書き換えが実行される。')
-        const status = await writeQiitaId(file, qiitaPostRes.id)
-        // 書き換えが成功すればそれを伝える
-        if (status) {
-          console.log(status.commit.message);
-          // res.status(201).json({ status: `succeeded ${status.commit.message}` })
-          return { status: 201, message: `succeeded ${status.commit.message}` }
         } else {
-          // res.status(502).json({ status: 'failed to update repository' })
-          return { status: 502, message: 'failed to update repository' }
+          // 上記の分岐で引っ掛からなければwriteQiitaIdを実行できる。
+          console.log('書き換えが実行される。')
+          const status = await writeQiitaId(file, qiitaPostRes.id)
+          // 書き換えが成功すればそれを伝える
+          if (status) {
+            console.log(status.commit.message);
+            // res.status(201).json({ status: `succeeded ${status.commit.message}` })
+            return { status: 201, message: `succeeded ${status.commit.message}` }
+          } else {
+            // res.status(502).json({ status: 'failed to update repository' })
+            return { status: 502, message: 'failed to update repository' }
+          }
         }
       }))
-      res.status(200).json({ allstatus: statuses})
+      res.status(200).json( { allstatus: statuses} )
     } else {
-      res.status(200).json({ status: 'noting to post' })
+      res.status(200).json( { status: 'noting to post' } )
     }
     
     //通信が成功したらstatusコード201とJsonを返す。
