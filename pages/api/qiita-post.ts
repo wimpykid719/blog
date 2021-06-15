@@ -24,7 +24,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     console.log(`filesフィルタ後の長さ：${filesRemovedUndefined.length}`)
     // filesRemovedUndefinedに値があれば処理を続ける。
     if (filesRemovedUndefined.length) {
-      const statuses = await Promise.all(files.map( async(file) => {
+      const statuses = await Promise.all(filesRemovedUndefined.map( async(file) => {
         //　ここじゃない
         console.log(`API側からのtopics${file.topics}`)
         const article = makeQiitaArticle(file)
