@@ -33,7 +33,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
         // falseの場合はwebhookの2回目の通信になるのでここで処理を止める。
         if (!qiitaPostRes) {
           // 多分これが実行された時点で処理止まる気がする。レスポンス返してるから
-          return res.status(200).json({ status: 'notting to upadate posts' })
+          return { status: 200, message: 'notting to upadate posts' }
         } else {
           // 上記の分岐で引っ掛からなければwriteQiitaIdを実行できる。
           console.log('書き換えが実行される。')
