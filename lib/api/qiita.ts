@@ -88,22 +88,27 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
       }
       // idがあり、アップ予定の記事タイトルと元々の記事タイトルが違う。これは更新になる。
       if(!(qiitaArticle.title === qiitaArticleGetRes.title)) {
+        console.log('タイトル更新')
         return true
       }
       // idがあり、アップ予定の記事タグと元々の記事タグが違う。これは更新になる。
 
       if(!(qiitaArticle.tags === qiitaArticleGetRes.tags)) {
+        console.log('タグ更新')
         return true
       }
       // idがあり、アップ予定の記事と元々の記事が違う。これは更新になる。
       if(!(qiitaArticle.body === qiitaArticleGetRes.body)) {
+        console.log('記事更新')
         return true
       }
       // idがあって変更が確認されない場合は2回目のwebhookによるものだから処理を止める必要がある。
       return false
+    } else {
+      // idがないやつは新規投稿する。
+      console.log('記事投稿')
+      return true
     }
-    // idがないやつは新規投稿する。
-    return true
   })(url, qiitaArticle, idArticle)
   
   console.log(`投稿できるか確認：${patchPostOk}`)
