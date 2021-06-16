@@ -19,7 +19,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     console.log(`files長さ：${files.length}`)
 
     // udefinedが配列に含まれるので取り除く
-    const filesRemovedUndefined = files.filter(v => v)
+    const filesRemovedUndefined = files.filter(Boolean)
     console.log(`filesフィルタ後の中身：${filesRemovedUndefined[0]}`)
     console.log(`filesフィルタ後の長さ：${filesRemovedUndefined.length}`)
     // filesRemovedUndefinedに値があれば処理を続ける。
