@@ -95,7 +95,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
       const flags2 = qiitaArticle.tags.map((tag) => {
         const flags = qiitaArticleGetRes.tags.map((resTag)=> {
           console.log(`restag中身：${resTag}`)
-          console.log(`restag配列中身：${resTag[0]}`)
+          console.log(`restag配列中身：${resTag.name}`)
           if(tag.name.toLowerCase() === resTag.name.toLowerCase()) {
             return false
           } else {
