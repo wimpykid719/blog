@@ -92,8 +92,18 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
         return true
       }
       // idがあり、アップ予定の記事タグと元々の記事タグが違う。これは更新になる。
-
-      if(!(qiitaArticle.tags === qiitaArticleGetRes.tags)) {
+      const flags2 = qiitaArticle.tags.map((tag) => {
+        const flags = qiitaArticleGetRes.tags.map((resTag)=> {
+          if(tag.name.toLowerCase() === resTag[0].name.toLowerCase()) {
+            return false
+          } else {
+            return true
+          }
+        })
+        return flags.every(v => v)
+      })
+      const flag = flags2.some(v => v)
+      if(flag) {
         console.log('タグ更新')
         return true
       }

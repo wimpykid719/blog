@@ -26,14 +26,13 @@ export type QiitaRepository = {
   markdownContents: string;
 }
 
-
-
-type QiitaArticleTwitterSettings = {
+export type QiitaArticle = {
+  body: string;
+  private: boolean;
+  tags: {name: string}[];
+  title: string;
   tweet: boolean;
 }
-
-//　こんな風に継承できるけど分かりづらいな
-export type QiitaArticle = QiitaArticleGetRes & QiitaArticleTwitterSettings
 
 // export type ArticleContent = ArticleTitle &{
 //   content: string;
