@@ -78,7 +78,7 @@ export type QiitaResError = {
 export type QiitaArticleGetRes = {
   body: string;
   private: boolean;
-  tags: [{name: string}, {versions: string | undefined}][];
+  tags: {name: string, versions: string | undefined}[];
   title: string;
 }
 
