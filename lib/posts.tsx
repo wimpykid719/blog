@@ -1,4 +1,3 @@
-import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 import prism from 'remark-prism'
@@ -9,7 +8,7 @@ import math from 'remark-math'
 import htmlKatex from 'remark-html-katex'
 import { ArticleResponse } from '../types/Response'
 import { Article } from '../types/Article'
-
+import { fetchGithubRep } from './utility/getarticle'
 
 export async function getPostsData() {
   const zennArticles: ArticleResponse[] = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles", {
@@ -21,32 +20,11 @@ export async function getPostsData() {
     .catch(err => {
         console.log(err);
     });
+  // 
   const datas = await (async (zennArticles) => {
     if (zennArticles) {
       return await Promise.all(zennArticles.map( async (article: ArticleResponse) => {
-        const data = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/" + article.name, {
-          headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
-        })
-          .then(res => {
-              // ここでdataに格納してる。
-              // 後続にthenが続く場合は後続のthenに引数として渡す。
-              // なければ変数 dateに値を代入する。
-              return res.json();
-          })
-          .catch(err => {
-              console.log(`アクセスに失敗した：${err}`);
-          });
-        const buffer = Buffer.from(data.content, 'base64');
-        const fileContents = buffer.toString("utf-8");
-        const matterResult = matter(fileContents)
-        if (!matterResult.data.published) {
-          return
-        }
-        return {
-          id: article.name.replace(/\.md$/, ''),
-          ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; }),
-          content: matterResult.content
-        }
+        return fetchGithubRep('https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/', article.name)
       }));
     }
   })(zennArticles);
