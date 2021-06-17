@@ -27,7 +27,7 @@ export async function getPostsData() {
 
   const datas2 = await (async (qiitaArticles) => {
     if (qiitaArticles) {
-      return await Promise.all(zennArticles.map(async (article: ArticleResponse) => {
+      return await Promise.all(qiitaArticles.map(async (article: ArticleResponse) => {
         return fetchGithubMakeArticle('https://api.github.com/repos/wimpykid719/qiita-content/contents/articles/', article.name)
       }));
     }

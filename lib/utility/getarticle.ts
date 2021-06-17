@@ -11,7 +11,7 @@ export async function fetchGithubRepo(url: string) {
       return res.json()
     }
   } catch(err) {
-    console.log(`fetchデータの処理中にエラー：${err}`);
+    console.log(`repofetchデータの処理中にエラー：${err}`);
   }
   
 }
@@ -38,7 +38,7 @@ export async function fetchGithubMakeArticle(url: string, fileName: string) {
       }
     }
   } catch(err) {
-    console.log(`fetchデータの処理中にエラー：${err}`);
+    console.log(`contentfetchデータの処理中にエラー：${err}`);
   }
   
 }
