@@ -8,23 +8,16 @@ import math from 'remark-math'
 import htmlKatex from 'remark-html-katex'
 import { ArticleResponse } from '../types/Response'
 import { Article } from '../types/Article'
-import { fetchGithubRep } from './utility/getarticle'
+import { fetchGithubMakeArticle } from './utility/getarticle'
+import { fetchGithubRepo } from './utility/getarticle'
+
 
 export async function getPostsData() {
-  const zennArticles: ArticleResponse[] = await fetch("https://api.github.com/repos/wimpykid719/zenn-content/contents/articles", {
-    headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
-  })
-    .then(res => {
-        return res.json();
-    })
-    .catch(err => {
-        console.log(err);
-    });
-  // 
+  const zennArticles: ArticleResponse[] = await fetchGithubRepo('https://api.github.com/repos/wimpykid719/zenn-content/contents/articles')
   const datas = await (async (zennArticles) => {
     if (zennArticles) {
       return await Promise.all(zennArticles.map( async (article: ArticleResponse) => {
-        return fetchGithubRep('https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/', article.name)
+        return fetchGithubMakeArticle('https://api.github.com/repos/wimpykid719/zenn-content/contents/articles/', article.name)
       }));
     }
   })(zennArticles);
