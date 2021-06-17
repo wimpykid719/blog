@@ -31,10 +31,19 @@ export async function fetchGithubMakeArticle(url: string, fileName: string) {
       if (!matterResult.data.published) {
         return
       }
+      if (matterResult.data.qiitaId) {
+        return {
+          id: fileName.replace(/\.md$/, ''),
+          ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; }),
+          content: matterResult.content,
+          from : 'Qiita'
+        }
+      }
       return {
         id: fileName.replace(/\.md$/, ''),
         ...(matterResult.data as { title: string; emoji: string; type: string; topics: string[]; published: boolean; date: string; }),
-        content: matterResult.content
+        content: matterResult.content,
+        from: 'Zenn'
       }
     }
   } catch(err) {

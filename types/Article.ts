@@ -1,4 +1,3 @@
-import { QiitaArticleGetRes } from './Response'
 
 export type Article = {
   id: string;
@@ -9,6 +8,7 @@ export type Article = {
   published: boolean;
   date: string;
   content: string;
+  from: string;
 }
 
 export type QiitaRepository = {

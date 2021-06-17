@@ -33,7 +33,7 @@ export default function Home({
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <ul className="mx-auto lg:flex lg:flex-wrap lg:justify-between lg:max-w-2xl xl:max-w-4xl">
-          {sortedPostData.map(({ id, title, date, topics, type }, index) => (
+          {sortedPostData.map(({ id, title, date, topics, type, from }, index) => (
             <li className={getColorClassFromIndex(index) + " h-60 flex justify-center items-center lg:max-w-xs xl:max-w-sm w-full lg:mb-14 lg:bg-transparent" } key={id}>
               <div className="w-11/12 h-5/6 flex flex-col">
                 <div className="font-bold text-xl">
@@ -45,7 +45,7 @@ export default function Home({
                   <Topics topicList={topics} />
                 </div>
                 <small className="border border-r-0 border-b-0 border-l-0 h-8 flex justify-between mt-auto items-end">
-                  <span>{type}</span>
+                  <span>{type}：{from}</span>
                   <Date dateString={date} />
                 </small>
               </div>
