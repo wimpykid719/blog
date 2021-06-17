@@ -14,6 +14,7 @@ import { fetchGithubRepo } from './utility/getarticle'
 
 export async function getPostsData() {
   const zennArticles: ArticleResponse[] = await fetchGithubRepo('https://api.github.com/repos/wimpykid719/zenn-content/contents/articles')
+
   const datas = await (async (zennArticles) => {
     if (zennArticles) {
       return await Promise.all(zennArticles.map( async (article: ArticleResponse) => {
@@ -21,7 +22,20 @@ export async function getPostsData() {
       }));
     }
   })(zennArticles);
-  const removeFalsyDatas = datas.filter(Boolean)
+
+  const qiitaArticles: ArticleResponse[] = await fetchGithubRepo('https://api.github.com/repos/wimpykid719/qiita-content/contents/articles')
+
+  const datas2 = await (async (qiitaArticles) => {
+    if (qiitaArticles) {
+      return await Promise.all(zennArticles.map(async (article: ArticleResponse) => {
+        return fetchGithubMakeArticle('https://api.github.com/repos/wimpykid719/qiita-content/contents/articles/', article.name)
+      }));
+    }
+  })(qiitaArticles)
+
+  const allDatas = datas.concat(datas2)
+
+  const removeFalsyDatas = allDatas.filter(Boolean)
   return removeFalsyDatas;
 }
 
