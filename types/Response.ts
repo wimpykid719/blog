@@ -70,10 +70,10 @@ export type Content = {
   content: string;
 }
 
-export type QiitaResError = {
-  type: "error";
-  message: string;
-}
+// export type QiitaResError = {
+//   type: "error";
+//   message: string;
+// }
 
 export type QiitaArticleGetRes = {
   body: string;

@@ -4,7 +4,6 @@ import { Commits } from '../../types/Response'
 import { Content } from '../../types/Response'
 import { QiitaArticleGetRes } from '../../types/Response'
 import { QiitaPostRes } from '../../types/Response'
-import { QiitaResError } from '../../types/Response'
 import { PushRes } from '../../types/Response'
 import { QiitaRepository } from '../../types/Article'
 import { QiitaArticle } from '../../types/Article'
@@ -48,7 +47,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
     });
     return resRepo
   }
-  return
+  return 'stop to rewrite repository'
 }
 
 
