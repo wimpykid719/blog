@@ -56,11 +56,11 @@ export type Webhook = {
 }
 
 export type Commits = {
-  files:[{
+  files:{
     filename: string;
     status: string;
     contents_url: string;
-  }]
+  }[]
 }
 
 export type Content = {

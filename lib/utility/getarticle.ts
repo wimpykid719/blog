@@ -13,7 +13,6 @@ export async function fetchGithubRepo(url: string) {
   } catch(err) {
     console.log(`repofetchデータの処理中にエラー：${err}`);
   }
-  
 }
 
 export async function fetchGithubMakeArticle(url: string, fileName: string) {

@@ -10,7 +10,7 @@ import { QiitaArticle } from '../../types/Article'
 
 
 
-//5 githubのリポジトリにqiitaIdを追加する。
+//4 githubのリポジトリにqiitaIdを追加する。
 export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
   console.log(`qiitaからのID： ${qiitaId}`)
   console.log(`fileからのID： ${file.qiitaId}`)
@@ -59,7 +59,6 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     'https://qiita.com/api/v2/items';
   console.log(`urlの確認：${url}`)
 
-  //ここの実行が飛ばされてる???
   const patchPostOk = await ( async(url, qiitaArticle, idArticle) => {
     // idがあるやつはすでに投稿されている記事なので、記事の更新かそれとも2回目のフックか判定する。
     if(idArticle) {
