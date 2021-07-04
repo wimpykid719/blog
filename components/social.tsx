@@ -39,7 +39,7 @@ export default function Social({ title, id, topics }: { title:string; id: string
           </a>
         </button>
         <button className="w-12 h-12 md:w-14 md:h-14 mr-1 mb-3 p-3 bg-gray-light rounded-2xl">
-          <a href={`http://cloud.feedly.com/#subscription/feed/${websiteUrl}rss/feed.xml`} target='blank'>
+          <a href={`https://feedly.com/i/subscription/feed/${websiteUrl}rss/feed.xml`} target='blank'>
             <SiFeedly />
           </a>
         </button>
