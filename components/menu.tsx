@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image'
 import { useState } from 'react';
-import { aboutme } from '../aboutme'
+import { aboutme } from '../techBlogSettings/aboutme'
 import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
 

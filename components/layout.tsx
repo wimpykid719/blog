@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { Navbar } from './menu';
+import { aboutblog } from '../techBlogSettings/aboutblog'
 
-
+// ここをaboutblogで設定として統一したいけどOGの設定をしてからにしたい。
 export const siteTitle = '大学生だった'
 
 //homeの型定義の?は必須の引数でない時に付ける。
@@ -15,10 +16,10 @@ export default function Layout({
     return (
         <div>
             <Head>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/favicon/favicon.ico" />
                 <meta
                     name="description"
-                    content="Zennに投稿した記事を使用して作成したオリジナルブログ、プログラミング技術に関する内容を投稿します。"
+                    content={aboutblog.description}
                 />
                 <meta
                     property="og:image"

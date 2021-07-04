@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { getPostsData } from '../lib/posts'
 import { getSortedPostsData } from '../lib/posts'
+import { generateFeedXml } from '../lib/generaterss'
 import { getUserData } from '../lib/user'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
@@ -60,6 +61,7 @@ export default function Home({
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = await getPostsData()
   const sortedPostData = await getSortedPostsData(allPostsData)
+  generateFeedXml(sortedPostData)
   const userData = await getUserData()
   return {
     props: {
