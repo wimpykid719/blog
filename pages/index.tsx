@@ -61,7 +61,10 @@ export default function Home({
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = await getPostsData()
   const sortedPostData = await getSortedPostsData(allPostsData)
-  generateFeedXml(sortedPostData)
+  if (process.env.PRODUCTION) {
+    console.log('本番環境のためRSSを生成')
+    generateFeedXml(sortedPostData)
+  }
   const userData = await getUserData()
   return {
     props: {
