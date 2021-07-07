@@ -83,3 +83,7 @@ article ol {
 article ol > li {
   @apply my-2;
 }
+
+article p {
+  @apply whitespace-pre-wrap;
+}
