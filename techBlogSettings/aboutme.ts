@@ -4,7 +4,7 @@ export const aboutme = {
   githubID: "wimpykid719",
   githubURL: "https://github.com/wimpykid719",
   description: "\
-                25歳、無職です。プログラミングが好きで勉強しています。\
+                26歳です。プログラミングが好きで勉強しています。\
                 転職活動中です。\
                 何かお手伝い出来る仕事はないでしょうか。よろしくお願いします。\
               ",
