@@ -4,6 +4,7 @@ import { aboutblog } from '../techBlogSettings/aboutblog'
 
 // ここをaboutblogで設定として統一したいけどOGの設定をしてからにしたい。
 export const siteTitle = '大学生だった'
+export const donateTitle = `${siteTitle} | 募金ページ`
 
 //homeの型定義の?は必須の引数でない時に付ける。
 export default function Layout({

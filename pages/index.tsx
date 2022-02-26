@@ -14,13 +14,13 @@ import { siteTitle } from '../components/layout'
 
 
 
-const pattern = ["bg-blue", "bg-blue-light", "bg-gray", "bg-earth-light"]; 
+const pattern = ["bg-blue", "bg-blue-light", "bg-gray", "bg-earth-light"];
 
 function getColorClassFromIndex(index: number): string {
   return pattern[index % pattern.length];
 }
 
-export default function Home({ 
+export default function Home({
   sortedPostData, userData
 }: {
   sortedPostData: Article[]
@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       sortedPostData: sortedPostData,
-      userData: userData, 
+      userData: userData,
     }
   }
 }

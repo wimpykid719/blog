@@ -11,7 +11,7 @@ import { PushRes } from '../../types/Response'
 
 
 export default async(req: NextApiRequest, res: NextApiResponse) => {
-  
+
   if (req.method === 'POST') {
     const files = await getUpdatedFiles(req.body)
     console.log(`filesフィルタ前の中身：${files[0]}`)
@@ -54,7 +54,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     } else {
       res.status(200).json( { status: 'noting to post' } )
     }
-    
+
     //通信が成功したらstatusコード201とJsonを返す。
     // res.status(201).json({ body: req.body })
   } else {
