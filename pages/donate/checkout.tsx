@@ -9,26 +9,28 @@ import { useState, useEffect } from "react";
 import { loadStripe, StripeElementsOptions, Appearance } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-import CheckOutForm from '../components/stripe/checkoutform'
-import { donateTitle } from '../components/layout'
+import CheckOutForm from '../../components/stripe/checkoutform'
+import { donateTitle } from '../../components/layout'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
 
 export default function Donate() {
 
   const [clientSecret, setClientSecret] = useState("");
+  const [donateId, setDonateId] = useState(1);
 
   useEffect(() => {
+    console.log('値段', donateId)
     fetch('/api/create-payment-intent', {
       method: 'post',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: 1 }),
+      body: JSON.stringify({ id: donateId }),
     })
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret)
       });
-  }, []);
+  }, [donateId]);
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {theme: 'stripe'},
@@ -41,8 +43,11 @@ export default function Donate() {
         <title>{donateTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <button onClick={() => setDonateId(1)}>200円</button>
+      <button onClick={() => setDonateId(2)}>980円</button>
+      <button onClick={() => setDonateId(3)}>7980円</button>
       {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
+        <Elements options={options} stripe={stripePromise} key={clientSecret}>
           <CheckOutForm />
         </Elements>
       )}
