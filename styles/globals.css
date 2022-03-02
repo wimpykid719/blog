@@ -87,3 +87,11 @@ article ol > li {
 article p {
   @apply whitespace-pre-wrap;
 }
+
+/* 共通部品 */
+
+@layer utilities {
+  .custom-gradient {
+    background: linear-gradient(120deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 60%);
+  }
+}
