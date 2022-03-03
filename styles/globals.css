@@ -91,7 +91,82 @@ article p {
 /* 共通部品 */
 
 @layer utilities {
-  .custom-gradient {
-    background: linear-gradient(120deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 60%);
+  .custom-gradient1 {
+    background: linear-gradient(
+      45deg,
+      hsl(52deg 100% 62%) 0%,
+      hsl(48deg 100% 58%) 11%,
+      hsl(45deg 100% 54%) 22%,
+      hsl(42deg 100% 50%) 33%,
+      hsl(37deg 100% 50%) 44%,
+      hsl(33deg 100% 50%) 56%,
+      hsl(28deg 100% 50%) 67%,
+      hsl(21deg 100% 53%) 78%,
+      hsl(12deg 100% 55%) 89%,
+      hsl(0deg 100% 57%) 100%
+    );
+    position:absolute;
+    z-index: -200;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+  .custom-gradient2 {
+    background: linear-gradient(
+      45deg,
+      hsl(195deg 95% 53%) 0%,
+      hsl(199deg 95% 54%) 15%,
+      hsl(202deg 95% 54%) 22%,
+      hsl(206deg 95% 54%) 28%,
+      hsl(210deg 95% 55%) 33%,
+      hsl(214deg 94% 55%) 37%,
+      hsl(218deg 94% 56%) 42%,
+      hsl(221deg 94% 56%) 46%,
+      hsl(225deg 94% 57%) 50%,
+      hsl(229deg 94% 57%) 54%,
+      hsl(233deg 94% 57%) 58%,
+      hsl(237deg 94% 58%) 63%,
+      hsl(241deg 94% 58%) 67%,
+      hsl(244deg 94% 59%) 72%,
+      hsl(248deg 93% 59%) 78%,
+      hsl(252deg 93% 60%) 85%,
+      hsl(256deg 93% 60%) 100%
+    );
+    position:absolute;
+    z-index: -200;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+  .custom-gradient3 {
+    background: linear-gradient(
+      45deg,
+      hsl(52deg 100% 62%) 0%,
+      hsl(54deg 91% 65%) 19%,
+      hsl(58deg 79% 67%) 27%,
+      hsl(65deg 75% 70%) 34%,
+      hsl(74deg 75% 74%) 41%,
+      hsl(86deg 75% 78%) 47%,
+      hsl(106deg 75% 82%) 53%,
+      hsl(134deg 80% 82%) 59%,
+      hsl(153deg 87% 79%) 66%,
+      hsl(166deg 93% 74%) 73%,
+      hsl(175deg 97% 68%) 81%,
+      hsl(180deg 100% 50%) 100%
+    );
+    position:absolute;
+    z-index: -200;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+  .custom-white {
+    background-color: #fff;
+    position:absolute;
+    z-index: -100;
+    left:0;
+    transition: opacity .5s linear;
+    width: 100%;
+    height: 100%;
   }
 }
