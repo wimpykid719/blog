@@ -92,19 +92,7 @@ article p {
 
 @layer utilities {
   .custom-gradient-orange {
-    background: linear-gradient(
-      45deg,
-      hsl(52deg 100% 62%) 0%,
-      hsl(48deg 100% 58%) 11%,
-      hsl(45deg 100% 54%) 22%,
-      hsl(42deg 100% 50%) 33%,
-      hsl(37deg 100% 50%) 44%,
-      hsl(33deg 100% 50%) 56%,
-      hsl(28deg 100% 50%) 67%,
-      hsl(21deg 100% 53%) 78%,
-      hsl(12deg 100% 55%) 89%,
-      hsl(0deg 100% 57%) 100%
-    );
+    background: #000;
   }
   .custom-gradient-blue {
     background: linear-gradient(
