@@ -104,7 +104,7 @@ article p {
       hsl(21deg 100% 53%) 78%,
       hsl(12deg 100% 55%) 89%,
       hsl(0deg 100% 57%) 100%
-    );
+    ) !important;
   }
   .custom-gradient2 {
     background: linear-gradient(
