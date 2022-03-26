@@ -25,18 +25,22 @@ export default function Price() {
   }
 
   return (
-    <div className="lg:max-w-5xl lg:mx-auto bg-gray-light min-h-screen">
-      <Head>
-        <title>{donateTitle}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <main className="bg-gray-light pt-8">
+      <div className="lg:mx-auto max-w-2xl min-h-screen mx-auto">
+        <Head>
+          <title>{donateTitle}</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <form onSubmit={handleSubmit}>
-        {prices.map((price, id) => (
-          <PriceCard key={id} id={price.id} amount={price.amount} donateId={donateId} onChange={changePrice}/>
-        ))}
-        <button type="submit">決済へ</button>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-wrap justify-center md:justify-between">
+            {prices.map((price, id) => (
+              <PriceCard key={id} id={price.id} amount={price.amount} donateId={donateId} message={price.message} onChange={changePrice}/>
+            ))}
+          </div>
+          <button type="submit">決済へ</button>
+        </form>
+      </div>
+    </main>
   )
 }

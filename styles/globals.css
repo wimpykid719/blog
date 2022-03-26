@@ -105,11 +105,6 @@ article p {
       hsl(12deg 100% 55%) 89%,
       hsl(0deg 100% 57%) 100%
     );
-    position:absolute;
-    z-index: -200;
-    left:0;
-    width: 100%;
-    height: 100%;
   }
   .custom-gradient2 {
     background: linear-gradient(
@@ -132,11 +127,6 @@ article p {
       hsl(252deg 93% 60%) 85%,
       hsl(256deg 93% 60%) 100%
     );
-    position:absolute;
-    z-index: -200;
-    left:0;
-    width: 100%;
-    height: 100%;
   }
   .custom-gradient3 {
     background: linear-gradient(
@@ -154,6 +144,8 @@ article p {
       hsl(175deg 97% 68%) 81%,
       hsl(180deg 100% 50%) 100%
     );
+  }
+  .position-gradient {
     position:absolute;
     z-index: -200;
     left:0;
@@ -165,8 +157,11 @@ article p {
     position:absolute;
     z-index: -100;
     left:0;
-    transition: opacity .5s linear;
+    transition: opacity 1s linear;
     width: 100%;
     height: 100%;
+  }
+  .inner-white {
+    box-shadow: inset 0px 0px 0px 3px #fff, 2px 1px 3px rgb(0 0 0 / 10%);
   }
 }
