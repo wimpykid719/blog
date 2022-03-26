@@ -92,7 +92,7 @@ article p {
 
 @layer utilities {
   .custom-gradient-orange {
-    background: #000;
+    background-color: #000;
   }
   .custom-gradient-blue {
     background: linear-gradient(
