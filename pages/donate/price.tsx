@@ -11,13 +11,21 @@ import { donateTitle } from '../../components/layout'
 import PriceCard from '../../components/stripe/atoms/pricecard'
 
 
-
 export default function Price() {
+  const router = useRouter()
+  const [donateId, setDonateId] = useState('1');
 
-  const [clientSecret, setClientSecret] = useState("");
-  const [donateId, setDonateId] = useState("1");
-
-  const handleSubmit = (event) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    // formにURLが指定されてない時デフォルトの操作で現在のURLにpostを投げてページを更新させてしまうので
+    // それを防ぐために下記のコードを実行している
+    e.preventDefault()
+    // e.currentTarget.elementsこれでformの値をまとめて取れるけど今回はステートに既に値があるので
+    // そちらを使用する
+    // donateIdを渡して次のページに遷移する
+    router.push({
+      pathname: '/donate/checkout',
+      query: { donate: donateId }
+    });
   }
 
   const changePrice = (event: React.ChangeEvent<HTMLInputElement>) => {

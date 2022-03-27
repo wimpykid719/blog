@@ -1,6 +1,6 @@
 // next.js
 import Head from 'next/head'
-import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 // React
 import { useState, useEffect } from "react";
@@ -15,22 +15,25 @@ import { donateTitle } from '../../components/layout'
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
 
 export default function Donate() {
-
-  const [clientSecret, setClientSecret] = useState("");
-  const [donateId, setDonateId] = useState(1);
+  const router = useRouter()
+  const donate = router.query.donate
+  const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
-    console.log('値段', donateId)
-    fetch('/api/create-payment-intent', {
-      method: 'post',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: donateId }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setClientSecret(data.clientSecret)
-      });
-  }, [donateId]);
+    console.log('値段', donate);
+    (async () => {
+      const res = await fetch('/api/create-payment-intent', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: [{ id: donate }] })
+      })
+      if (!res.ok) {
+        throw `payment-intentでエラー：${res.status}`
+      }
+      const data = await res.json()
+      setClientSecret(data.clientSecret)
+    })()
+  }, [donate]);
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {theme: 'stripe'},
@@ -43,9 +46,6 @@ export default function Donate() {
         <title>{donateTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <button onClick={() => setDonateId(1)}>200円</button>
-      <button onClick={() => setDonateId(2)}>980円</button>
-      <button onClick={() => setDonateId(3)}>7980円</button>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise} key={clientSecret}>
           <CheckOutForm />
