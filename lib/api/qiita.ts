@@ -54,7 +54,7 @@ export async function writeQiitaId(file: QiitaRepository, qiitaId: string) {
 
 //3 qiitaに投稿する。
 export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
-  const url = idArticle ? 
+  const url = idArticle ?
     'https://qiita.com/api/v2/items' + '/' +idArticle :
     'https://qiita.com/api/v2/items';
   console.log(`urlの確認：${url}`)
@@ -117,7 +117,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
     console.log('記事投稿')
     return true
   })(url, qiitaArticle, idArticle)
-  
+
   console.log(`投稿できるか確認：${patchPostOk}`)
   if (!patchPostOk) {
     return false
@@ -126,7 +126,7 @@ export async function postQiita(qiitaArticle: QiitaArticle, idArticle: string) {
   console.log((`methodの確認：${method}`))
   console.log(`記事のタイトル：${qiitaArticle.title}`)
 
-  
+
   const jsonQiitaArticle: string = JSON.stringify(qiitaArticle)
   const qiitaPostRes: QiitaPostRes | undefined = await fetch(url, {
     headers: {
@@ -167,7 +167,7 @@ export function makeQiitaArticle(file: QiitaRepository) {
 export async function getUpdatedFiles(payload: Webhook) {
   const BASE_URL = 'https://api.github.com/repos/wimpykid719/qiita-content/commits/'
   const latestCommitsha: string = payload.head_commit.id
-  
+
   const updatedFileContents: Commits | undefined = await fetch(BASE_URL + latestCommitsha, {
     headers: {"Authorization": `token ${process.env.GITHUB_TOKEN}`}
   })
@@ -204,7 +204,7 @@ export async function getUpdatedFiles(payload: Webhook) {
     });
 
     console.log(`fileJsonの中身：${fileJson.name}`)
-    
+
     const buffer = Buffer.from(fileJson.content, 'base64');
     const markdownContents = buffer.toString("utf-8");
     const matterResult = matter(markdownContents)
