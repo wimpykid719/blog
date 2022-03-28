@@ -29,6 +29,9 @@ module.exports = {
       white: {
         DEFAULT: '#fff'
       },
+      stripe: {
+        DEFAULT: '#3959f2',
+      }
     },
   },
   variants: {

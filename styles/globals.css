@@ -164,4 +164,14 @@ article p {
   .inner-white {
     box-shadow: inset 0px 0px 0px 3px #fff, 2px 1px 3px rgb(0 0 0 / 10%);
   }
+  .custom-box-shadow{
+    @apply transition-shadow;
+    box-shadow: 0 6px 6px 0 rgb(57 89 242 / 39%)
+  }
+  .custom-box-shadow:hover{
+    box-shadow: 0 8px 6px 0 rgb(57 89 242 / 39%)
+  }
+  .custom-area-opacity {
+    background-color: rgba(0, 0, 0, .3);
+  }
 }
