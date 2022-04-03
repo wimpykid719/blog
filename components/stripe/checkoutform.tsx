@@ -18,7 +18,14 @@ export default function CheckOutForm() {
 
   const [message, setMessage] = useState<string | undefined | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [displayStripeForm, setDisplayStripeForm] = useState(true);
 
+  const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const displayForm = async () => {
+    await _sleep(3000)
+    setDisplayStripeForm(false)
+  }
 
   useEffect(() => {
     if (!stripe) {
@@ -86,16 +93,28 @@ export default function CheckOutForm() {
     setIsLoading(false);
   };
 
+
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <>
+      {displayStripeForm && (
+        <div className="fixed inset-0 w-full h-full bg-stripe z-10 flex justify-center items-center">
+          <div className=" w-9/12 max-w-2xl bg-white rounded-3xl mx-auto p-8 cutom-box-shadow-black">
+            <div className="spinner"></div>
+            <span>決済情報を確認しています...</span>
+          </div>
+        </div>
+      )}
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <div>決済情報</div>
+          <PaymentElement id="payment-element" onReady={() => {displayForm()}}/>
+          <button disabled={isLoading || !stripe || !elements} id="submit">
+            <span id="button-text">
+              {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+            </span>
+          </button>
+          {/* Show any error or success messages */}
+          {message && <div id="payment-message">{message}</div>}
+      </form>
+    </>
   );
 }
