@@ -30,7 +30,10 @@ module.exports = {
         DEFAULT: '#fff'
       },
       stripe: {
-        DEFAULT: '#3959f2',
+        DEFAULT: '#2743d6',
+      },
+      green: {
+        DEFAULT: '#2dd7e0',
       }
     },
   },
