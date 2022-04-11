@@ -66,14 +66,17 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
 
   const observeGridY = () => {
     window.addEventListener('touchstart',(event) => {
+      event.preventDefault();
       setStartY(event.touches[0].pageY)
     })
     window.addEventListener('touchmove',(event) => {
+      event.preventDefault();
       setEndY(event.touches[0].pageY)
     })
   }
   const swipeDisplayUpStripeForm = () => {
-    window.addEventListener('touchend',() => {
+    window.addEventListener('touchend',(event) => {
+      event.preventDefault();
       displayUpStripeForm()
     })
   }
@@ -180,9 +183,9 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
           </div>
         </div>
         <div className="bg-stripe rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
-          <span className="block h-14 w-11/12 mx-auto mb-8">
+          <div className="h-14 w-11/12 mx-auto my-8">
             <div className="h-1 w-4/12 bg-gray rounded-full mx-auto"></div>
-          </span>
+          </div>
           <PaymentElement className="mb-16 text-white" onReady={() => {displayForm()}}/>
           <button  className="bg-green w-full h-12 text-white font-medium rounded-md hover:shadow-lg" disabled={isLoading || !stripe || !elements} id="submit">
             <span id="button-text">
