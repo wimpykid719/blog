@@ -3,9 +3,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router';
 
 // React
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 // stripe
-import { loadStripe, StripeElementsOptions, Appearance } from "@stripe/stripe-js";
+import { loadStripe, StripeElementsOptions} from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 import CheckOutForm from '../../components/stripe/checkoutform'

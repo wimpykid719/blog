@@ -24,7 +24,6 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
   const [startY, setStartY] = useState(0);
   const [endY, setEndY] = useState(0);
   const [stripeFormWrapperHeight, setStripeFormWrapperHeight] = useState(0);
-  const [toggle, setToggle] = useState(false);
   const stripeFormWrapper = useRef<HTMLDivElement>(null);
 
   // フック化したいけどtailwindcssのコンパイル時にファイル内にクラス名がないとcssが出力されなくなる
@@ -50,8 +49,8 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
 
   const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const displayUpStripeForm = () => {
-    const swipeUp = 0 < (endY - startY) && 100 < Math.abs((endY - startY))
-      ? 'translateY(0px)' : `translateY(${stripeFormWrapperHeight}px)`;
+    const swipeUp = 0 < (endY - startY) && 50 < Math.abs((endY - startY))
+      ? `translateY(${stripeFormWrapperHeight - 50}px)` : 'translateY(0px)';
     if (stripeFormWrapper.current) {
       stripeFormWrapper.current.style.transform = swipeUp
     }
@@ -61,7 +60,7 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     await _sleep(3000)
     setDisplayStripeForm(false)
     const height = stripeFormWrapper.current.getBoundingClientRect().height
-    stripeFormWrapper.current.style.transform = `translateY(${height}px)`
+    stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
     setStripeFormWrapperHeight(height)
   }
 
@@ -76,7 +75,6 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
   const swipeDisplayUpStripeForm = () => {
     window.addEventListener('touchend',() => {
       displayUpStripeForm()
-      // setToggle(swipeUp)
     })
   }
 
@@ -181,10 +179,10 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
             </ul>
           </div>
         </div>
-        <div className="bg-stripe rounded-3xl px-5 pb-12 lg:max-w-sm fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
-          <button className="block h-14 w-11/12 mx-auto mb-8">
+        <div className="bg-stripe rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
+          <span className="block h-14 w-11/12 mx-auto mb-8">
             <div className="h-1 w-4/12 bg-gray rounded-full mx-auto"></div>
-          </button>
+          </span>
           <PaymentElement className="mb-16 text-white" onReady={() => {displayForm()}}/>
           <button  className="bg-green w-full h-12 text-white font-medium rounded-md hover:shadow-lg" disabled={isLoading || !stripe || !elements} id="submit">
             <span id="button-text">
