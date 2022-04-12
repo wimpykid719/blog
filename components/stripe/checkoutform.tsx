@@ -23,8 +23,12 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
   const [displayStripeForm, setDisplayStripeForm] = useState(true);
   const [startY, setStartY] = useState(0);
   const [endY, setEndY] = useState(0);
+  const [clicked, setClicked] = useState(false)
+  const [toggle, setToggle] = useState(false)
   const [stripeFormWrapperHeight, setStripeFormWrapperHeight] = useState(0);
   const stripeFormWrapper = useRef<HTMLDivElement>(null);
+  const swipeButton = useRef<HTMLButtonElement>(null);
+
 
   // フック化したいけどtailwindcssのコンパイル時にファイル内にクラス名がないとcssが出力されなくなる
   const donateInfo = ((donate) => {
@@ -49,10 +53,29 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
 
   const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const displayUpStripeForm = () => {
+    console.log('clickedですね', clicked)
+    if (clicked) {
+      console.log('touchend回避')
+      return
+    }
+    console.log(endY, startY)
     const swipeUp = 0 < (endY - startY) && 50 < Math.abs((endY - startY))
       ? `translateY(${stripeFormWrapperHeight - 50}px)` : 'translateY(0px)';
     if (stripeFormWrapper.current) {
       stripeFormWrapper.current.style.transform = swipeUp
+      const formStatus = swipeUp === 'translateY(0px)' ? true : false;
+      setToggle(() => formStatus)
+    }
+  }
+  const displayClickUpStripeForm = () => {
+    console.log('クリック')
+    setClicked(() => true)
+    console.log('ここは変わる', clicked)
+    const swipeUp = toggle ? `translateY(${stripeFormWrapperHeight - 50}px)` : 'translateY(0px)';
+    console.log(toggle, swipeUp)
+    if (stripeFormWrapper.current) {
+      stripeFormWrapper.current.style.transform = swipeUp
+      setToggle(() => !toggle)
     }
   }
 
@@ -60,24 +83,22 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     await _sleep(3000)
     setDisplayStripeForm(false)
     const height = stripeFormWrapper.current.getBoundingClientRect().height
-    stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
     setStripeFormWrapperHeight(height)
+    stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
   }
 
   const observeGridY = () => {
     window.addEventListener('touchstart',(event) => {
-      event.preventDefault();
       setStartY(event.touches[0].pageY)
     })
     window.addEventListener('touchmove',(event) => {
-      event.preventDefault();
       setEndY(event.touches[0].pageY)
     })
   }
   const swipeDisplayUpStripeForm = () => {
-    window.addEventListener('touchend',(event) => {
-      event.preventDefault();
+    window.addEventListener('touchend',() => {
       displayUpStripeForm()
+      // setClicked(() => false)
     })
   }
 
@@ -85,10 +106,15 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     if (document.readyState === "complete") {
       observeGridY();
       swipeDisplayUpStripeForm();
+      swipeButton.current.addEventListener('touchend', () => {
+        displayClickUpStripeForm
+        console.log('流石にね', clicked)
+      })
     } else {
       window.addEventListener('load', observeGridY);
       observeGridY();
       swipeDisplayUpStripeForm();
+      swipeButton.current.addEventListener('touchend', displayClickUpStripeForm)
     }
 
     if (!stripe) {
@@ -183,10 +209,13 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
           </div>
         </div>
         <div className="bg-stripe rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
-          <div className="h-14 w-11/12 mx-auto my-8">
+          <button className="block h-14 w-11/12 mx-auto mb-8" type="button" ref={swipeButton}>
             <div className="h-1 w-4/12 bg-gray rounded-full mx-auto"></div>
-          </div>
-          <PaymentElement className="mb-16 text-white" onReady={() => {displayForm()}}/>
+          </button>
+          <PaymentElement
+            className="mb-16 text-white"
+            onReady={() => {displayForm()}}
+          />
           <button  className="bg-green w-full h-12 text-white font-medium rounded-md hover:shadow-lg" disabled={isLoading || !stripe || !elements} id="submit">
             <span id="button-text">
               {isLoading ? <div className="spinner" id="spinner"></div> : `${donateInfo.info.amount}円 支払う`}
