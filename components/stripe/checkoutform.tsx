@@ -23,11 +23,9 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
   const [displayStripeForm, setDisplayStripeForm] = useState(true);
   const [startY, setStartY] = useState(0);
   const [endY, setEndY] = useState(0);
-  const [clicked, setClicked] = useState(false)
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
   const [stripeFormWrapperHeight, setStripeFormWrapperHeight] = useState(0);
   const stripeFormWrapper = useRef<HTMLDivElement>(null);
-  const swipeButton = useRef<HTMLButtonElement>(null);
 
 
   // フック化したいけどtailwindcssのコンパイル時にファイル内にクラス名がないとcssが出力されなくなる
@@ -53,29 +51,12 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
 
   const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const displayUpStripeForm = () => {
-    console.log('clickedですね', clicked)
-    if (clicked) {
-      console.log('touchend回避')
-      return
-    }
-    console.log(endY, startY)
     const swipeUp = 0 < (endY - startY) && 50 < Math.abs((endY - startY))
       ? `translateY(${stripeFormWrapperHeight - 50}px)` : 'translateY(0px)';
     if (stripeFormWrapper.current) {
       stripeFormWrapper.current.style.transform = swipeUp
-      const formStatus = swipeUp === 'translateY(0px)' ? true : false;
-      setToggle(() => formStatus)
-    }
-  }
-  const displayClickUpStripeForm = () => {
-    console.log('クリック')
-    setClicked(() => true)
-    console.log('ここは変わる', clicked)
-    const swipeUp = toggle ? `translateY(${stripeFormWrapperHeight - 50}px)` : 'translateY(0px)';
-    console.log(toggle, swipeUp)
-    if (stripeFormWrapper.current) {
-      stripeFormWrapper.current.style.transform = swipeUp
-      setToggle(() => !toggle)
+      const formStatus = swipeUp === 'translateY(0px)' ? true : false
+      setToggle(formStatus)
     }
   }
 
@@ -87,34 +68,43 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
   }
 
-  const observeGridY = () => {
+  const observeStripeFormHeight = () => {
+    // 登録した要素のサイズ変更を監視
+    const observer = new ResizeObserver(() => {
+      if (stripeFormWrapper.current) {
+        const height = stripeFormWrapper.current.getBoundingClientRect().height
+        setStripeFormWrapperHeight(height)
+      }
+    });
+
+    if(stripeFormWrapper.current) {
+      observer.observe(stripeFormWrapper.current);
+    }
+  }
+
+  const observeStripeForm = () => {
     window.addEventListener('touchstart',(event) => {
       setStartY(event.touches[0].pageY)
     })
     window.addEventListener('touchmove',(event) => {
       setEndY(event.touches[0].pageY)
     })
+    observeStripeFormHeight()
   }
+
   const swipeDisplayUpStripeForm = () => {
     window.addEventListener('touchend',() => {
       displayUpStripeForm()
-      // setClicked(() => false)
     })
   }
 
   useEffect(() => {
     if (document.readyState === "complete") {
-      observeGridY();
+      observeStripeForm();
       swipeDisplayUpStripeForm();
-      swipeButton.current.addEventListener('touchend', () => {
-        displayClickUpStripeForm
-        console.log('流石にね', clicked)
-      })
     } else {
-      window.addEventListener('load', observeGridY);
-      observeGridY();
+      window.addEventListener('load', observeStripeForm);
       swipeDisplayUpStripeForm();
-      swipeButton.current.addEventListener('touchend', displayClickUpStripeForm)
     }
 
     if (!stripe) {
@@ -186,13 +176,14 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
   return (
     <>
       {displayStripeForm && (
-        <div className="fixed inset-0 w-full h-full bg-stripe z-10 flex justify-center items-center">
+        <div className="fixed inset-0 w-full h-full bg-stripe z-30 flex justify-center items-center">
           <div className=" w-9/12 max-w-2xl bg-white rounded-3xl mx-auto p-8 cutom-box-shadow-black">
             <div className="spinner"></div>
             <span>決済情報を確認しています...</span>
           </div>
         </div>
       )}
+      <div className={`${toggle ? '' : 'hidden'} w-full h-full bg-gray-darker opacity-50 fixed z-10 transition-opacity`}></div>
       <form id="payment-form" className="lg:flex lg:justify-between pt-7" onSubmit={handleSubmit}>
         <div className="lg:max-w-sm lg:m-0 w-11/12 mx-auto">
           <h1 className="text-2xl p-0 mb-4 font-normal">決済内容</h1>
@@ -208,10 +199,10 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
             </ul>
           </div>
         </div>
-        <div className="bg-stripe rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
-          <button className="block h-14 w-11/12 mx-auto mb-8" type="button" ref={swipeButton}>
+        <div className="bg-stripe rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm z-20 fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
+          <div className="h-14 w-11/12 mx-auto mb-6 mt-3">
             <div className="h-1 w-4/12 bg-gray rounded-full mx-auto"></div>
-          </button>
+          </div>
           <PaymentElement
             className="mb-16 text-white"
             onReady={() => {displayForm()}}
