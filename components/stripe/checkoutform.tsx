@@ -11,6 +11,8 @@ import { CheckOutFormProps } from '../../types/stripe/CheckOutForm'
 
 import { prices } from '../../techBlogSettings/pricelist'
 
+import { EventManager } from '../../lib/utility/eventManager'
+
 
 // import { CardElementType } from './types/stripe'
 
@@ -64,8 +66,11 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     await _sleep(3000)
     setDisplayStripeForm(false)
     const height = stripeFormWrapper.current.getBoundingClientRect().height
+    console.log('初期のフォーム高さ', height)
     setStripeFormWrapperHeight(height)
-    stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
+    if (window.innerWidth < 1024) {
+      stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
+    }
   }
 
   const observeStripeFormHeight = () => {
@@ -82,29 +87,58 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     }
   }
 
-  const observeStripeForm = () => {
-    window.addEventListener('touchstart',(event) => {
+  const observeStripeForm = (windowEventManager) => {
+    windowEventManager.add('touchstart',(event) => {
       setStartY(event.touches[0].pageY)
     })
-    window.addEventListener('touchmove',(event) => {
+    windowEventManager.add('touchmove',(event) => {
       setEndY(event.touches[0].pageY)
     })
     observeStripeFormHeight()
   }
 
-  const swipeDisplayUpStripeForm = () => {
-    window.addEventListener('touchend',() => {
+  const swipeDisplayUpStripeForm = (windowEventManager) => {
+    windowEventManager.add('touchend',() => {
       displayUpStripeForm()
     })
   }
 
   useEffect(() => {
+    const windowEventManager = new EventManager(window);
+    const mqlPC = window.matchMedia('(min-width:1024px)')
+    mqlPC.addEventListener('change', ev => {
+      console.log('初期ローディング')
+      // ここで一旦解除してレイアウトも戻す
+      windowEventManager.removeAll('touchstart');
+      windowEventManager.removeAll('touchmove');
+      windowEventManager.removeAll('touchend');
+      if (stripeFormWrapper.current) {
+        stripeFormWrapper.current.style.transform = `translateY(0px)`
+      }
+      if (ev.matches) {
+        // pc用何もしない
+        setToggle(false)
+        return
+      }
+      // pcサイズじゃない場合元に戻す
+      observeStripeForm(windowEventManager);
+      swipeDisplayUpStripeForm(windowEventManager);
+      // if (stripeFormWrapper.current) {
+      //   const height = stripeFormWrapper.current.getBoundingClientRect().height
+      //   console.log('モバイル用', height)
+      //   stripeFormWrapper.current.style.transform = `translateY(${height - 50}px)`
+      // }
+    })
     if (document.readyState === "complete") {
-      observeStripeForm();
-      swipeDisplayUpStripeForm();
+      if (window.innerWidth < 1024) {
+        observeStripeForm(windowEventManager);
+        swipeDisplayUpStripeForm(windowEventManager);
+      }
     } else {
-      window.addEventListener('load', observeStripeForm);
-      swipeDisplayUpStripeForm();
+      if (window.innerWidth < 1024) {
+        window.addEventListener('load', observeStripeForm);
+        swipeDisplayUpStripeForm(windowEventManager);
+      }
     }
 
     if (!stripe) {
@@ -199,8 +233,8 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
             </ul>
           </div>
         </div>
-        <div className="bg-stripe rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm z-20 fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
-          <div className="h-14 w-11/12 mx-auto mb-6 mt-3">
+        <div className="bg-stripe lg:rounded-b-3xl rounded-3xl rounded-b-none px-5 pb-12 lg:max-w-sm z-20 lg:static fixed w-full bottom-0 transition-transform" ref={stripeFormWrapper}>
+          <div className="h-14 w-11/12 mx-auto mb-6 mt-3 lg:invisible">
             <div className="h-1 w-4/12 bg-gray rounded-full mx-auto"></div>
           </div>
           <PaymentElement
@@ -213,7 +247,7 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
             </span>
           </button>
           {/* Show any error or success messages */}
-          {message && <div id="payment-message">{message}</div>}
+          {message && <div id="payment-message" className="text-red">{message}</div>}
         </div>
       </form>
     </>

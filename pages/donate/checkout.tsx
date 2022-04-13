@@ -41,6 +41,7 @@ export default function Donate() {
       variables: {
         colorBackground: "#4864e8",
         colorText: '#fff',
+        colorDanger: '#EC407A',
         spacingGridRow: "40px"
       },
       rules: {
