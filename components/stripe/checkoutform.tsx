@@ -12,6 +12,7 @@ import { CheckOutFormProps } from '../../types/stripe/CheckOutForm'
 import { prices } from '../../techBlogSettings/pricelist'
 
 import { EventManager } from '../../lib/utility/eventManager'
+import { sleep } from '../../lib/utility/sleep'
 
 
 // import { CardElementType } from './types/stripe'
@@ -51,7 +52,6 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
     }
   })(donate)
 
-  const _sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const displayUpStripeForm = () => {
     const swipeUp = 0 < (endY - startY) && 50 < Math.abs((endY - startY))
       ? `translateY(${stripeFormWrapperHeight - 50}px)` : 'translateY(0px)';
@@ -63,7 +63,7 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
   }
 
   const displayForm = async () => {
-    await _sleep(3000)
+    await sleep(3000)
     setDisplayStripeForm(false)
     const height = stripeFormWrapper.current.getBoundingClientRect().height
     console.log('初期のフォーム高さ', height)
@@ -188,7 +188,7 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/donate/checkout?donate=${donate}`,
+        return_url: `http://localhost:3000/donate/complete`,
       },
     });
 
@@ -243,7 +243,7 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
           />
           <button  className="bg-green w-full h-12 text-white font-medium rounded-md hover:shadow-lg" disabled={isLoading || !stripe || !elements} id="submit">
             <span id="button-text">
-              {isLoading ? <div className="spinner" id="spinner"></div> : `${donateInfo.info.amount}円 支払う`}
+              {isLoading ? <div className="spinner-2" id="spinner"></div> : `${donateInfo.info.amount}円 支払う`}
             </span>
           </button>
           {/* Show any error or success messages */}
