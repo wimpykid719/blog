@@ -15,6 +15,7 @@ import { EventManager } from '../../lib/utility/eventManager'
 import { sleep } from '../../lib/utility/sleep'
 
 import { description } from "../../techBlogSettings/checkformdescription";
+import { aboutblog } from "../../techBlogSettings/aboutblog";
 
 
 // import { CardElementType } from './types/stripe'
@@ -190,7 +191,7 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/donate/complete`,
+        return_url: `${aboutblog.url}donate/complete`,
       },
     });
 
