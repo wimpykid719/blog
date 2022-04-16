@@ -14,6 +14,8 @@ import { prices } from '../../techBlogSettings/pricelist'
 import { EventManager } from '../../lib/utility/eventManager'
 import { sleep } from '../../lib/utility/sleep'
 
+import { description } from "../../techBlogSettings/checkformdescription";
+
 
 // import { CardElementType } from './types/stripe'
 
@@ -226,10 +228,11 @@ export default function CheckOutForm({donate}: CheckOutFormProps) {
             <div className="text-2xl pt-5">{`${donateInfo.info.amount}`}<small className="text-xs">円</small></div>
           </div>
           <div className="mt-8">
-            <ul className="list-disc pl-5">
-              <li>stripeを通して作者に募金します。</li>
-              <li>このお金で開発に必要となる、{donateInfo.info.message}</li>
-              <li>作者はこれを糧としてサービス開発・技術記事の執筆に努め募金者に還元します。</li>
+            <ul className="list-disc pl-5 mb-checkout-description">
+              <li>{description.text1}</li>
+              <li>{description.text2}{donateInfo.info.message}</li>
+              <li>{description.text3}</li>
+              <li>{description.text4}</li>
             </ul>
           </div>
         </div>

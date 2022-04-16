@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { aboutme } from '../techBlogSettings/aboutme'
 import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
+import { FaRegCreditCard } from "@react-icons/all-files/fa/FaRegCreditCard";
 
 
 export const Navbar = ({
@@ -47,9 +48,9 @@ export const Navbar = ({
             </div>
             <div>
               <p className="text-xl font-bold">大学生だった.</p>
-              <ul className="text-xs font-extralight mt-2">
-                <li><a href={aboutme.twitterURL} target="_blank"><FaTwitter />　{aboutme.twitterID}</a></li>
-                <li><a href={aboutme.githubURL} target="_blank"><FaGithub />　{aboutme.githubID}</a></li>
+              <ul className="text-xs font-extralight mt-2 mb-sns">
+                <li className="mb-1"><a href={aboutme.twitterURL} target="_blank"><FaTwitter />　{aboutme.twitterID}</a></li>
+                <li className="mb-1"><a href={aboutme.githubURL} target="_blank"><FaGithub />　{aboutme.githubID}</a></li>
               </ul>
             </div>
           </div>
@@ -67,8 +68,14 @@ export const Navbar = ({
             <p>{aboutme.future}</p>
           </div>
           <div className='flex flex-col text-blue-dark mt-10 mb-10'>
+          <Link href='/donate/price'>
+            <a className='inline-block w-full py-2 font-bold'>
+              <span className="tiny-pl"><FaRegCreditCard /></span>
+              <span className="pl-1">開発者へ寄付</span>
+            </a>
+          </Link>
             <Link href='/'>
-              <a className='inline-flex lg:w-auto w-full px-3 py-2 rounded font-bold items-center justify-center '>
+              <a className='inline-flex w-full py-2 font-bold items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>

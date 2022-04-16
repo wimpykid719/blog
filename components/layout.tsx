@@ -31,6 +31,7 @@ export default function Layout({
             </Head>
             <div className="xl:flex">
               <Navbar avatarUrl={avatarUrl}/>
+              {/*flex-1はflex: 1 1 0%;で幅は1で枠からはみ出る場合は縮める親要素に対しての基準の幅はautoで変更される*/}
               <main className="lg:flex-1 bg-earth-lighter">{children}</main>
             </div>
         </div>

@@ -37,9 +37,11 @@ export default function Price() {
       <div className="lg:mx-auto max-w-2xl min-h-screen mx-auto">
         <Head>
           <title>{donateTitle}</title>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon/favicon.ico" />
         </Head>
-
+        <div>
+          <h1 className="text-2xl font-normal pl-3">募金額を選択</h1>
+        </div>
         <form className="py-8" onSubmit={handleSubmit}>
           <div className="flex flex-wrap justify-center md:justify-between">
             {prices.map((price, id) => (

@@ -5,11 +5,11 @@ export const aboutme = {
   githubURL: "https://github.com/wimpykid719",
   description: "\
                 26歳です。プログラミングが好きで勉強しています。\
-                転職活動中です。\
-                何かお手伝い出来る仕事はないでしょうか。よろしくお願いします。\
+                今はエンジニアとしてお仕事しています。\
+                よろしくお願いします。\
               ",
   tech: "\
-          Python（Flask）, JavaScript（VanilaJavaScript, React, TypeScript, Next.js）\
+          Python（Flask）, Ruby（Rails, RSpec） JavaScript（VanilaScript, React, TypeScript, Next.js）\
           ,HTML, CSS（SCSS, Tailwind）を使います。\
         ",
   lately: "\

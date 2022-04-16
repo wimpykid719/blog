@@ -37,6 +37,9 @@ module.exports = {
       },
       red: {
         DEFAULT: '#EC407A'
+      },
+      yellow: {
+        DEFAULT: '#f8d10c'
       }
     },
   },
