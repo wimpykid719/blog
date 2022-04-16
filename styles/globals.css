@@ -87,3 +87,226 @@ article ol > li {
 article p {
   @apply whitespace-pre-wrap;
 }
+
+button:disabled {
+  cursor: default;
+}
+
+.mb-sns > li {
+  @apply mb-1;
+}
+
+.mb-checkout-description > li {
+  @apply mb-4;
+}
+
+/* 共通部品 */
+
+@layer utilities {
+  .custom-orange {
+    background: linear-gradient(
+      45deg,
+      hsl(52deg 100% 62%) 0%,
+      hsl(48deg 100% 58%) 11%,
+      hsl(45deg 100% 54%) 22%,
+      hsl(42deg 100% 50%) 33%,
+      hsl(37deg 100% 50%) 44%,
+      hsl(33deg 100% 50%) 56%,
+      hsl(28deg 100% 50%) 67%,
+      hsl(21deg 100% 53%) 78%,
+      hsl(12deg 100% 55%) 89%,
+      hsl(0deg 100% 57%) 100%
+    );
+  }
+  .custom-blue {
+    background: linear-gradient(
+      45deg,
+      hsl(195deg 95% 53%) 0%,
+      hsl(199deg 95% 54%) 15%,
+      hsl(202deg 95% 54%) 22%,
+      hsl(206deg 95% 54%) 28%,
+      hsl(210deg 95% 55%) 33%,
+      hsl(214deg 94% 55%) 37%,
+      hsl(218deg 94% 56%) 42%,
+      hsl(221deg 94% 56%) 46%,
+      hsl(225deg 94% 57%) 50%,
+      hsl(229deg 94% 57%) 54%,
+      hsl(233deg 94% 57%) 58%,
+      hsl(237deg 94% 58%) 63%,
+      hsl(241deg 94% 58%) 67%,
+      hsl(244deg 94% 59%) 72%,
+      hsl(248deg 93% 59%) 78%,
+      hsl(252deg 93% 60%) 85%,
+      hsl(256deg 93% 60%) 100%
+    );
+  }
+  .custom-yellow {
+    background: linear-gradient(
+      45deg,
+      hsl(52deg 100% 62%) 0%,
+      hsl(54deg 91% 65%) 19%,
+      hsl(58deg 79% 67%) 27%,
+      hsl(65deg 75% 70%) 34%,
+      hsl(74deg 75% 74%) 41%,
+      hsl(86deg 75% 78%) 47%,
+      hsl(106deg 75% 82%) 53%,
+      hsl(134deg 80% 82%) 59%,
+      hsl(153deg 87% 79%) 66%,
+      hsl(166deg 93% 74%) 73%,
+      hsl(175deg 97% 68%) 81%,
+      hsl(180deg 100% 50%) 100%
+    );
+  }
+  .position-gradient {
+    position:absolute;
+    z-index: -200;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+  .custom-white {
+    background-color: #fff;
+    position:absolute;
+    z-index: -100;
+    left:0;
+    transition: opacity 1s linear;
+    width: 100%;
+    height: 100%;
+  }
+  .inner-white {
+    box-shadow: inset 0px 0px 0px 3px #fff, 2px 1px 3px rgb(0 0 0 / 10%);
+  }
+  .custom-box-shadow {
+    @apply transition-shadow;
+    box-shadow: 0 6px 6px 0 rgb(57 89 242 / 39%)
+  }
+  .custom-box-shadow:hover{
+    box-shadow: 0 8px 6px 0 rgb(57 89 242 / 39%)
+  }
+  .cutom-box-shadow-black {
+    box-shadow: 0 6px 6px 0 rgb(0 0 0 / 10%)
+  }
+  .custom-area-opacity {
+    background-color: rgba(0, 0, 0, .3);
+  }
+  /* spinner/processing state, errors */
+  /*決済情報確認の際に使用されるスピナー*/
+  .spinner,
+  .spinner:before,
+  .spinner:after {
+    border-radius: 50%;
+  }
+
+  .spinner {
+    @apply text-stripe;
+    font-size: 22px;
+    text-indent: -99999px;
+    margin: 20px auto;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    box-shadow: inset 0 0 0 2px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .spinner:before,
+  .spinner:after {
+    position: absolute;
+    @apply bg-white;
+    content: '';
+  }
+
+  .spinner:before {
+    width: 25px;
+    height: 46px;
+    border-radius: 20.4px 0 0 20.4px;
+    top: -0.1px;
+    left: -1.8px;
+    -webkit-transform-origin: 25px 20.2px;
+    transform-origin: 25px 20.2px;
+    -webkit-animation: loading 2s infinite ease 1.5s;
+    animation: loading 2s infinite ease 1.5s;
+  }
+
+  .spinner:after {
+    width: 22.4px;
+    height: 20.2px;
+    border-radius: 0 10.2px 10.2px 0;
+    top: 0px;
+    left: 20px;
+    -webkit-transform-origin: 0px 20.2px;
+    transform-origin: 0px 20.2px;
+    -webkit-animation: loading 2s infinite ease;
+    animation: loading 2s infinite ease;
+  }
+
+  /*決済の際に使用されるスピナー*/
+  .spinner-2,
+  .spinner-2:before,
+  .spinner-2:after {
+    border-radius: 50%;
+  }
+
+  .spinner-2 {
+    font-size: 22px;
+    text-indent: -99999px;
+    margin: 0px auto;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    box-shadow: inset 0 0 0 2px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .spinner-2:before,
+  .spinner-2:after {
+    position: absolute;
+    content: '';
+  }
+
+  .spinner-2:before {
+    width: 10.4px;
+    height: 20.4px;
+    @apply bg-green;
+    border-radius: 20.4px 0 0 20.4px;
+    top: -0.2px;
+    left: -0.2px;
+    -webkit-transform-origin: 10.4px 10.2px;
+    transform-origin: 10.4px 10.2px;
+    -webkit-animation: loading 2s infinite ease 1.5s;
+    animation: loading 2s infinite ease 1.5s;
+  }
+
+  .spinner-2:after {
+    width: 10.4px;
+    height: 10.2px;
+    @apply bg-green;
+    border-radius: 0 10.2px 10.2px 0;
+    top: -0.1px;
+    left: 10.2px;
+    -webkit-transform-origin: 0px 10.2px;
+    transform-origin: 0px 10.2px;
+    -webkit-animation: loading 2s infinite ease;
+    animation: loading 2s infinite ease;
+  }
+
+  @keyframes loading {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  .tiny-pl {
+    padding-left: 2px;
+  }
+
+}

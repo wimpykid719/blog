@@ -15,7 +15,7 @@ export default function usePageView() {
     }
     //componentDidMountの役割URLが変更されるたびにhandleRouteChangeが実行される。
     Router.events.on('routeChangeComplete', handleRouteChange)
-    
+
     //componentWillUnmontの役割
     return () => {
       Router.events.off('routeChangeComplete', handleRouteChange)

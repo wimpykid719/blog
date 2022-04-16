@@ -25,6 +25,21 @@ module.exports = {
         DEFAULT: '#d6e6f2',
         dark: '#888',
         darker: '#212121',
+      },
+      white: {
+        DEFAULT: '#fff'
+      },
+      stripe: {
+        DEFAULT: '#2743d6',
+      },
+      green: {
+        DEFAULT: '#2dd7e0',
+      },
+      red: {
+        DEFAULT: '#EC407A'
+      },
+      yellow: {
+        DEFAULT: '#f8d10c'
       }
     },
   },

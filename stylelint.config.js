@@ -5,10 +5,10 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['extends', 'tailwind'],
+        ignoreAtRules: ['extends', 'tailwind', 'layer'],
       },
     ],
     'block-no-empty': null,
-    'unit-whitelist': ['em', 'rem', 's'],
+    'unit-whitelist': ['deg', '%', 'px', 'em', 'rem', 's'],
   },
 }

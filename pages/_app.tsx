@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import "../styles/prism-daigakusei.css"
+// import "../styles/stripe.css"
 import "katex/dist/katex.min.css"
 import usePageView from '../src/hooks/usePageView'
 import { AppProps } from 'next/app'

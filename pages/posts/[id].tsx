@@ -9,11 +9,11 @@ import { Article } from '../../types/Article'
 import { UserResponse } from '../../types/Response'
 
 
-export default function Post({ 
+export default function Post({
     postData,
     userData
-}: { 
-    postData: Article 
+}: {
+    postData: Article
     userData: UserResponse
 }) {
     return (
@@ -28,7 +28,7 @@ export default function Post({
                 </div>
                 <div className="pt-7">
                     <p className="font-bold text-blue-darker">あとで読む</p>
-                    <Social title={postData.title} id={postData.id} topics={postData.topics} /> 
+                    <Social title={postData.title} id={postData.id} topics={postData.topics} />
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: postData.content }} />
             </article>
