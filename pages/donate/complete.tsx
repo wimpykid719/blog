@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 // React
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // lib
 import { useReward } from 'react-rewards';
 import { donateTitle } from '../../components/layout'

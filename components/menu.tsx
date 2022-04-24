@@ -68,12 +68,12 @@ export const Navbar = ({
             <p>{aboutme.future}</p>
           </div>
           <div className='flex flex-col text-blue-dark mt-10 mb-10'>
-          <Link href='/donate/price'>
-            <a className='inline-block w-full py-2 font-bold'>
-              <span className="tiny-pl"><FaRegCreditCard /></span>
-              <span className="pl-1">開発者へ寄付</span>
-            </a>
-          </Link>
+            <Link href='/donate/price'>
+              <a className='inline-block w-full py-2 font-bold'>
+                <span className="tiny-pl"><FaRegCreditCard /></span>
+                <span className="pl-1">開発者へ寄付</span>
+              </a>
+            </Link>
             <Link href='/'>
               <a className='inline-flex w-full py-2 font-bold items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

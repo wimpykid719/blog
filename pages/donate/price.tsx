@@ -1,11 +1,10 @@
 // next.js
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { prices } from '../../techBlogSettings/pricelist'
 
 // React
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { donateTitle } from '../../components/layout'
 import PriceCard from '../../components/stripe/atoms/pricecard'
