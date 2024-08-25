@@ -19,6 +19,7 @@ export default function Post({
     return (
         <Layout avatarUrl={userData.avatar_url}>
             <Head>
+                <meta name="robots" content="noindex" />
                 <title>{postData.title}</title>
             </Head>
             <article className="w-11/12 lg:max-w-4xl mx-auto pb-7">
