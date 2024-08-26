@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  blog:
+    environment:
+      BLOG_PORT: $BLOG_PORT
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: $NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+      STRIPE_SECRET_KEY: $STRIPE_SECRET_KEY
+      QIITA_TOKEN: $QIITA_TOKEN
+      GITHUB_TOKEN: $GITHUB_TOKEN
+      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: $NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: blog
+    working_dir: /blog
+    stop_signal: SIGINT
+    volumes:
+      - .:/blog
+    ports:
+      - "$BLOG_PORT:$BLOG_PORT"
+    stdin_open: true
+    # -tを意味する
+    tty: true
